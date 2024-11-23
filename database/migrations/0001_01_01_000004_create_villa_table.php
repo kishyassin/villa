@@ -12,7 +12,8 @@ return new class extends Migration {
             $table->id(); // ID de la villa
             $table->string('name'); // Nom de la villa
             $table->text('description'); // Description détaillée de la villa
-            $table->string('location'); // Localisation de la villa (ville, quartier, etc.)
+            $table->string('location');
+            $table->string('ville'); // Localisation de la villa (ville, quartier, etc.)
             $table->decimal('price', 8, 2); // Prix de la villa
             $table->integer('rooms')->default(1); // Nombre de chambres
             $table->integer('bathrooms')->default(1); // Nombre de salles de bains

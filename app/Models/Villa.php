@@ -1,5 +1,6 @@
 <?php
 
+namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,6 +17,7 @@ class Villa extends Model
         'rooms',
         'bathrooms',
         'area',
+        'ville',
         'is_available',
     ];
 
