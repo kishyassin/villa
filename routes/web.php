@@ -3,6 +3,7 @@ use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VillaController;
 
 // Route pour la page d'accueil
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -23,9 +24,11 @@ Route::middleware('auth')->group(function () {
 Route::get('/checkout', 'App\Http\Controllers\StripeController@checkout')->name('checkout');
 Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
 Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');
+
 Route::get('/properties', function () {
     return view('properties'); // Assurez-vous que le fichier existe dans resources/views/
 })->name('properties');
+Route::get('proprety/villa/{id}' , [VillaController::class, 'show'])->name('villa.show');
 
 Route::get('contact', function () {
     return view('contact');
