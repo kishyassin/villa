@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="assets/css/app.css">
 
   </head>
 
@@ -246,7 +247,28 @@
               <div class="" >
                 <div class=""   >
                   <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-3">The Blade templates are called automatically when you route the user to a specific page from your StripeController. Each of the Blade files you will use corresponds to different steps of the Stripe payment flow. Here's how and when they get called:
+1. confirmation.blade.php
+
+This is the page where users confirm their order before proceeding to payment.
+
+    When to call it: This Blade file is returned by the confirmationPage() method in your StripeController. This method is responsible for showing the user their cart items and allowing them to confirm the details before proceeding to the Stripe payment gateway.
+    How it's called: The confirmation.blade.php view is rendered when you visit the route tied to the confirmationPage() method.
+
+public function confirmationPage(Request $request)
+{
+    $user = auth()->user();
+    $items = \Cart::session(Auth::id())->getContent(); // Get cart items
+    $total = $items->sum(function ($item) {
+        return $item->price * $item->quantity;
+    });
+
+    return view('confirmation', [
+        'user' => $user,
+        'items' => $items,
+        'total' => $total
+    ]);
+}
                       <div class="info-table">
                         <ul>
                           <li>Total Flat Space <span>250 m2</span></li>
@@ -280,31 +302,51 @@
   <div class="payment-section section">
   <div class="container">
     <div class="row">
-      <div class="col-lg-6 offset-lg-3">
-        <div class="section-heading text-center">
+      <div class="col-lg-12">
+        <div class="section-heading text-center mb-4">
           <h6>| Rent Payment</h6>
           <h2>Pay for Your Villa Rental</h2>
         </div>
-        <form  method="POST" class="payment-form">
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <!-- Left Column: Form -->
+      <div class="col-lg-6">
+       <form action="{{ route('stripe.session') }}" method="POST" class="payment-form">
           @csrf
-          <div class="form-group">
-            <label for="start_date">Starting Date</label>
+          <div class="form-group mb-4">
+            <label for="start_date" class="form-label">Starting Date</label>
             <input type="date" id="start_date" name="start_date" class="form-control" required>
           </div>
-          <div class="form-group">
-            <label for="months">Number of Months</label>
-            <input type="number" id="months" name="months" class="form-control" min="1" required>
+          <div class="form-group mb-4">
+            <label for="months" class="form-label">Number of Months</label>
+            <div class="custom-number-input">
+              <input
+                type="number"
+                id="months"
+                name="months"
+                class="form-control"
+                min="1"
+                max="12"
+                value="1"
+              >
+            </div>
           </div>
-          <div class="form-group">
-            <label for="amount">Amount to Pay</label>
-            <input type="text" id="amount" name="amount" class="form-control" value="2000 MAD" readonly>
+          <div class="form-group mb-4">
+            <label for="amount" class="form-label">Amount to Pay</label>
+            <div id="amount" class="animated-amount">2000 MAD</div>
           </div>
           <button type="submit" class="btn btn-primary">Proceed to Payment</button>
         </form>
       </div>
+      <!-- Right Column: Image -->
+      <div class="col-lg-6 text-center">
+        <img src="assets/images/video-frame.jpg" alt="Villa" class="img-fluid payment-image">
+      </div>
     </div>
   </div>
 </div>
+
 
 
   <div class="contact section">
@@ -391,14 +433,67 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
+<!-- Include necessary JavaScript files -->
+  <!-- jQuery -->
   <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/js/isotope.min.js"></script>
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Additional JS Files -->
   <script src="assets/js/owl-carousel.js"></script>
-  <script src="assets/js/counter.js"></script>
+  <script src="assets/js/animation.js"></script>
+  <script src="assets/js/imagesloaded.js"></script>
   <script src="assets/js/custom.js"></script>
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+  <!-- Optional: Initialize Swiper or other plugins -->
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const monthsInput = document.getElementById("months");
+  const amountDisplay = document.getElementById("amount");
 
+  // Base price per month
+  const pricePerMonth = 2000;
+
+  // Update amount dynamically
+  const updateAmount = () => {
+    const months = parseInt(monthsInput.value, 10) || 0;
+    if (months <= 0) {
+      amountDisplay.textContent = ""; // Clear the amount if invalid
+    } else {
+      const newAmount = months * pricePerMonth;
+      amountDisplay.textContent = `${newAmount} MAD`;
+
+      // Add animation class for smooth changes
+      amountDisplay.classList.add("changed");
+      setTimeout(() => {
+        amountDisplay.classList.remove("changed");
+      }, 300);
+    }
+  };
+
+  // Restrict input and handle arrow-based changes
+  monthsInput.addEventListener("input", () => {
+    let currentValue = parseInt(monthsInput.value, 10) || 1;
+
+    // Ensure the value stays within the allowed range (1 to 12)
+    if (currentValue < 1) {
+      currentValue = 1;
+    } else if (currentValue > 12) {
+      currentValue = 12;
+    }
+
+    // Update the input value to the corrected range if needed
+    monthsInput.value = currentValue;
+    updateAmount();
+  });
+
+  // Initialize default amount on page load
+  updateAmount();
+});
+
+
+</script>
+  
   </body>
+
 </html>

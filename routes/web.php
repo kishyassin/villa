@@ -1,38 +1,49 @@
 <?php
+
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VillaController;
 
-// Route pour la page d'accueil
+// Route for the home page
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Route pour le tableau de bord
+// Dashboard route
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Routes protégées par middleware
+// Protected routes with 'auth' middleware
 Route::middleware('auth')->group(function () {
+    // Profile routes
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Stripe payment routes
+    Route::prefix('stripe')->name('stripe.')->group(function () {
+        Route::post('/session', [StripeController::class, 'session'])->name('session');
+        Route::get('/success', [StripeController::class, 'success'])->name('success');
+        Route::get('/cancel', [StripeController::class, 'cancel'])->name('cancel');
+    });
+
+    // Confirmation route
+    Route::get('/confirmation', [StripeController::class, 'confirmationPage'])->name('confirmation');
 });
 
-// Route pour la page "Properties"
-Route::get('/checkout', 'App\Http\Controllers\StripeController@checkout')->name('checkout');
-Route::post('/session', 'App\Http\Controllers\StripeController@session')->name('session');
-Route::get('/success', 'App\Http\Controllers\StripeController@success')->name('success');
-
+// Public routes for properties and contact
 Route::get('/properties', function () {
-    return view('properties'); // Assurez-vous que le fichier existe dans resources/views/
+    return view('properties');
 })->name('properties');
-Route::get('proprety/villa/{id}' , [VillaController::class, 'show'])->name('villa.show');
 
+// Villa routes
+Route::resource('villas', VillaController::class)->only(['show']);
+
+// Contact page route
 Route::get('contact', function () {
     return view('contact');
 })->name('contact_us');
 
-// Authentification (routes générées par Laravel Breeze ou Jetstream)
+// Authentication routes
 require __DIR__.'/auth.php';
