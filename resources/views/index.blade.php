@@ -230,7 +230,8 @@
     </div>
   </div>
 
-  <div class="section best-deal">
+  
+   <div class="section best-deal">
     <div class="container">
       <div class="row">
         <div class="col-lg-4">
@@ -240,10 +241,10 @@
           </div>
         </div>
         <div class="col-lg-12">
-          <div class="tabs-content">
+          <div >
             <div class="row">
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade" id="villa" role="tabpanel" aria-labelledby="villa-tab">
+              <div class="" >
+                <div class=""   >
                   <div class="row">
                     <div class="col-lg-3">
                       <div class="info-table">
@@ -263,12 +264,11 @@
                       <h4>Detail Info About Villa</h4>
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut labore et dolore magna aliqua quised ipsum suspendisse. <br><br>Swag fanny pack lyft blog twee. JOMO ethical copper mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella venmo after messenger poutine next level humblebrag swag franzen.</p>
                       <div class="icon-button">
-                        <a href="{{ route('properties') }}"><i class="fa fa-calendar"></i> Schedule a visit</a>
+                        <a href="property-details.html"><i class="fa fa-calendar"></i> Schedule a visit</a>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- osi -->
               </div>
             </div>
           </div>
@@ -276,6 +276,35 @@
       </div>
     </div>
   </div>
+
+  <div class="payment-section section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 offset-lg-3">
+        <div class="section-heading text-center">
+          <h6>| Rent Payment</h6>
+          <h2>Pay for Your Villa Rental</h2>
+        </div>
+        <form  method="POST" class="payment-form">
+          @csrf
+          <div class="form-group">
+            <label for="start_date">Starting Date</label>
+            <input type="date" id="start_date" name="start_date" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="months">Number of Months</label>
+            <input type="number" id="months" name="months" class="form-control" min="1" required>
+          </div>
+          <div class="form-group">
+            <label for="amount">Amount to Pay</label>
+            <input type="text" id="amount" name="amount" class="form-control" value="2000 MAD" readonly>
+          </div>
+          <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 
   <div class="contact section">
