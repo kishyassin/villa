@@ -74,9 +74,33 @@
                       <li><a href="{{route('contact_us')}}">Contact Us</a></li>
                       <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
                   </ul>
-                    <a class='menu-trigger'>
+                    <!-- <a class='menu-trigger'>
                         <span>Menu</span>
-                    </a>
+                    </a> -->
+                    @if (Route::has('login'))
+                @auth
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-item nav-link"><i class="fa fa-user" aria-hidden="true"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="{{ route('dashboard') }}" class="dropdown-item">modifier</a>
+                            <a href="/app" class="dropdown-item">dashboard</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a href="{{ route('logout') }}" class="dropdown-item"
+                                   onclick="event.preventDefault(); this.closest('form').submit();">
+                                    {{ __('Déconnecter') }}
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+
+                @else
+                    <div
+                        class="sm:top-0 sm:right-0 ps-3 d-flex align-items-center justify-content-center text-right">
+                        <a href="{{ route('login') }}" class="btn btn-primary rounded-full">se connecter</a>
+                    </div>
+                @endauth
+            @endif
                     <!-- ***** Menu End ***** -->
                 </nav>
             </div>
@@ -247,28 +271,7 @@
               <div class="" >
                 <div class=""   >
                   <div class="row">
-                    <div class="col-lg-3">The Blade templates are called automatically when you route the user to a specific page from your StripeController. Each of the Blade files you will use corresponds to different steps of the Stripe payment flow. Here's how and when they get called:
-1. confirmation.blade.php
-
-This is the page where users confirm their order before proceeding to payment.
-
-    When to call it: This Blade file is returned by the confirmationPage() method in your StripeController. This method is responsible for showing the user their cart items and allowing them to confirm the details before proceeding to the Stripe payment gateway.
-    How it's called: The confirmation.blade.php view is rendered when you visit the route tied to the confirmationPage() method.
-
-public function confirmationPage(Request $request)
-{
-    $user = auth()->user();
-    $items = \Cart::session(Auth::id())->getContent(); // Get cart items
-    $total = $items->sum(function ($item) {
-        return $item->price * $item->quantity;
-    });
-
-    return view('confirmation', [
-        'user' => $user,
-        'items' => $items,
-        'total' => $total
-    ]);
-}
+                    <div class="col-lg-3">
                       <div class="info-table">
                         <ul>
                           <li>Total Flat Space <span>250 m2</span></li>
@@ -312,7 +315,7 @@ public function confirmationPage(Request $request)
     <div class="row align-items-center">
       <!-- Left Column: Form -->
       <div class="col-lg-6">
-       <form action="{{ route('stripe.session') }}" method="POST" class="payment-form">
+        <form action="{{ route('stripe.session') }}" method="POST" class="payment-form">
           @csrf
           <div class="form-group mb-4">
             <label for="start_date" class="form-label">Starting Date</label>
@@ -336,6 +339,8 @@ public function confirmationPage(Request $request)
             <label for="amount" class="form-label">Amount to Pay</label>
             <div id="amount" class="animated-amount">2000 MAD</div>
           </div>
+          <!-- Hidden End Date Field -->
+          <input type="hidden" id="end_date" name="end_date">
           <button type="submit" class="btn btn-primary">Proceed to Payment</button>
         </form>
       </div>
@@ -346,6 +351,7 @@ public function confirmationPage(Request $request)
     </div>
   </div>
 </div>
+
 
 
 
@@ -446,54 +452,109 @@ public function confirmationPage(Request $request)
   <!-- Swiper JS -->
   <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
   <!-- Optional: Initialize Swiper or other plugins -->
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const monthsInput = document.getElementById("months");
-  const amountDisplay = document.getElementById("amount");
+ <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const monthsInput = document.getElementById("months");
+    const amountDisplay = document.getElementById("amount");
+    const startDateInput = document.getElementById("start_date");
+    const endDateInput = document.getElementById("end_date");
 
-  // Base price per month
-  const pricePerMonth = 2000;
+    // Base price per month
+    const pricePerMonth = 2000;
 
-  // Update amount dynamically
-  const updateAmount = () => {
-    const months = parseInt(monthsInput.value, 10) || 0;
-    if (months <= 0) {
-      amountDisplay.textContent = ""; // Clear the amount if invalid
-    } else {
-      const newAmount = months * pricePerMonth;
-      amountDisplay.textContent = `${newAmount} MAD`;
+    // Update amount dynamically
+    const updateAmount = () => {
+      const months = parseInt(monthsInput.value, 10) || 0;
+      if (months <= 0) {
+        amountDisplay.textContent = ""; // Clear the amount if invalid
+      } else {
+        const newAmount = months * pricePerMonth;
+        amountDisplay.textContent = `${newAmount} MAD`;
 
-      // Add animation class for smooth changes
-      amountDisplay.classList.add("changed");
-      setTimeout(() => {
-        amountDisplay.classList.remove("changed");
-      }, 300);
-    }
-  };
+        // Add animation class for smooth changes
+        amountDisplay.classList.add("changed");
+        setTimeout(() => {
+          amountDisplay.classList.remove("changed");
+        }, 300);
+      }
+    };
 
-  // Restrict input and handle arrow-based changes
-  monthsInput.addEventListener("input", () => {
-    let currentValue = parseInt(monthsInput.value, 10) || 1;
+    // Calculate the end date based on start date and months
+    const calculateEndDate = () => {
+      const startDate = new Date(startDateInput.value);
+      const months = parseInt(monthsInput.value, 10);
 
-    // Ensure the value stays within the allowed range (1 to 12)
-    if (currentValue < 1) {
-      currentValue = 1;
-    } else if (currentValue > 12) {
-      currentValue = 12;
-    }
+      if (startDate && !isNaN(months)) {
+        // Add the number of months to the starting date
+        const endDate = new Date(startDate);
+        endDate.setMonth(endDate.getMonth() + months);
 
-    // Update the input value to the corrected range if needed
-    monthsInput.value = currentValue;
+        // Format the date to YYYY-MM-DD for the hidden input
+        const formattedEndDate = endDate.toISOString().split("T")[0];
+        endDateInput.value = formattedEndDate;
+      }
+    };
+
+    // Restrict input and handle arrow-based changes
+    monthsInput.addEventListener("input", () => {
+      let currentValue = parseInt(monthsInput.value, 10) || 1;
+
+      // Ensure the value stays within the allowed range (1 to 12)
+      if (currentValue < 1) {
+        currentValue = 1;
+      } else if (currentValue > 12) {
+        currentValue = 12;
+      }
+
+      // Update the input value to the corrected range if needed
+      monthsInput.value = currentValue;
+      updateAmount();
+      calculateEndDate();
+    });
+
+    // Add event listener for the start date input
+    startDateInput.addEventListener("input", calculateEndDate);
+
+    // Initialize default amount and end date on page load
     updateAmount();
+    calculateEndDate();
   });
-
-  // Initialize default amount on page load
-  updateAmount();
-});
-
-
 </script>
-  
+
+
+    <!-- JavaScript to toggle between static rating and form -->
+    <script>
+        document.getElementById('modifyBtn').addEventListener('click', function () {
+            document.getElementById('staticRating').style.display = 'none';
+            document.getElementById('ratingForm').style.display = 'block';
+        });
+    </script>
+
+
+    @if(Session::has('success'))
+        <script>
+            $(document).ready(function () {
+                Swal.fire({
+                    title: "Bien",
+                    text: "{{Session::get('success')}}",
+                    icon: "success"
+                });
+            })
+        </script>
+    @endif
+
+    @if(Session::has('error'))
+        <script>
+            $(document).ready(function () {
+                Swal.fire({
+                    title: "Ooops",
+                    text: "{{Session::get('error')}}",
+                    icon: "error"
+                });
+            })
+        </script>
+    @endif
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 
 </html>

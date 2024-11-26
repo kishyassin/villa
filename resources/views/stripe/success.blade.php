@@ -1,5 +1,5 @@
 {{-- resources/views/payment-success.blade.php --}}
-@extends('layouts.app')
+@extends('../layouts.app')
 
 @section('content')
     <div class="container">
@@ -13,6 +13,5 @@
             <li><strong>Delivery Address:</strong> {{ session('address') }}</li>
         </ul>
 
-        <a href="{{ route('cart') }}" class="btn btn-primary">Go back to Cart</a>
     </div>
 @endsection

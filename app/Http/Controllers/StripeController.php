@@ -15,11 +15,15 @@ class StripeController extends Controller
      */
     public function session(Request $request)
     {
+        \Log::info('Stripe session hit.', $request->all());
+        \Log::info('User ID:', [Auth::id()]);
+        
         // Validate input
         $data = $request->validate([
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
+        \Log::info('Validation passed.');
 
         $startDate = Carbon::parse($data['start_date'])->format('Y-m-d');
         $endDate = Carbon::parse($data['end_date'])->format('Y-m-d');
@@ -59,6 +63,14 @@ class StripeController extends Controller
                 'cancel_url' => route('stripe.cancel'),
             ]);
 
+            // Store metadata in session
+            session([
+                'stripe_metadata' => [
+                    'start_date' => $startDate,
+                    'end_date' => $endDate,
+                ]
+            ]);
+
             return redirect()->away($checkoutSession->url);
         } catch (\Throwable $th) {
             \Log::error('Stripe session creation failed: ' . $th->getMessage());
@@ -77,8 +89,13 @@ class StripeController extends Controller
             // Verify payment with Stripe if necessary (e.g., via webhook or session metadata)
             $userId = Auth::id();
 
-            // Retrieve metadata from the Stripe session (if stored securely)
-            $metadata = session('stripe_metadata'); // Optionally use metadata from Stripe webhook
+            // Retrieve metadata from session
+            $metadata = session('stripe_metadata');
+
+            if (!$metadata || !isset($metadata['start_date'], $metadata['end_date'])) {
+                throw new \Exception('Missing metadata in session.');
+            }
+
             $startDate = $metadata['start_date'];
             $endDate = $metadata['end_date'];
 
@@ -91,11 +108,11 @@ class StripeController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('dashboard')->with('success', 'Payment successful! Your villa has been reserved.');
+            return view('stripe.success')->with('success', 'Payment successful! Your villa has been reserved.');
         } catch (\Exception $e) {
             DB::rollBack();
-            \Log::error('Payment processing failed: ' . $e->getMessage());
-            return redirect()->route('dashboard')->with('error', 'Failed to process payment.');
+            \Log::error('Stripe session error:', ['message' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Error completing the payment: ' . $e->getMessage());
         }
     }
 
@@ -104,7 +121,7 @@ class StripeController extends Controller
      */
     public function cancel()
     {
-        return redirect()->route('dashboard')->with('error', 'Payment was canceled.');
+        return redirect()->route('stripe/cancel')->with('error', 'Payment was canceled.');
     }
 
     /**
@@ -121,9 +138,19 @@ class StripeController extends Controller
     /**
      * Calculate rental price based on duration.
      */
-    private function calculateRentalPrice($startDate, $endDate, $pricePerMonth)
+    private function calculateRentalPrice($contentstartDate, $endDate, $pricePerMonth)
     {
-        $months = Carbon::parse($startDate)->diffInMonths(Carbon::parse($endDate)) + 1;
+        // Parse the dates
+        $start = Carbon::parse($startDate);
+        $end = Carbon::parse($endDate);
+
+        // Calculate the total number of days
+        $totalDays = $start->diffInDays($end);
+
+        // Convert days to months assuming 30 days per month
+        $months = ceil($totalDays / 30);
+
+        // Return the total rental price
         return $months * $pricePerMonth;
     }
 }
