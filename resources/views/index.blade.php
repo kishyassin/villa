@@ -68,16 +68,12 @@
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
+                    <ul class="nav flex items-center">
                     <li><a href="{{ route('home') }}" class="active">Home</a></li>
                       <li><a href="{{ route('properties') }}">Property Details</a></li>
                       <li><a href="{{route('contact_us')}}">Contact Us</a></li>
-                      <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
-                  </ul>
-                    <!-- <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a> -->
-                    @if (Route::has('login'))
+                      <li>
+                        @if (Route::has('login'))
                 @auth
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-item nav-link"><i class="fa fa-user" aria-hidden="true"></i></a>
@@ -101,6 +97,15 @@
                     </div>
                 @endauth
             @endif
+                      </li>
+                    <li>
+                
+                    </li>
+                  </ul>
+                    <!-- <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a> -->
+                   
                     <!-- ***** Menu End ***** -->
                 </nav>
             </div>
@@ -319,11 +324,27 @@
           @csrf
           <div class="form-group mb-4">
             <label for="start_date" class="form-label">Starting Date</label>
-            <input type="date" id="start_date" name="start_date" class="form-control" min="{{ now()->toDateString() }}" required>
+            <input 
+              type="date" 
+              id="start_date" 
+              name="start_date" 
+              class="form-control" 
+              min="{{ now()->toDateString() }}" 
+              value="{{ now()->toDateString() }}" 
+              required
+          >
           </div>
           <div class="form-group mb-4">
             <label for="end_date" class="form-label">Ending Date</label>
-            <input type="date" id="end_date" name="end_date" class="form-control" min="{{ now()->toDateString() }}" required>
+            <input 
+                  type="date" 
+                  id="end_date" 
+                  name="end_date" 
+                  class="form-control" 
+                  min="{{ now()->toDateString() }}" 
+                  value="{{ now()->addDay()->toDateString() }}" 
+                  required
+              >
           </div>
           <div class="form-group mb-4">
             <label for="amount" class="form-label">Amount to Pay</label>
@@ -506,29 +527,30 @@
     </script>
 
 
-    @if(Session::has('success'))
-        <script>
-            $(document).ready(function () {
-                Swal.fire({
-                    title: "Bien",
-                    text: "{{Session::get('success')}}",
-                    icon: "success"
-                });
-            })
-        </script>
-    @endif
+   @if(Session::has('success'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: "Success",
+                text: "{{ Session::get('success') }}",
+                icon: "success"
+            });
+        });
+    </script>
+@endif
 
-    @if(Session::has('error'))
-        <script>
-            $(document).ready(function () {
-                Swal.fire({
-                    title: "Ooops",
-                    text: "{{Session::get('error')}}",
-                    icon: "error"
-                });
-            })
-        </script>
-    @endif
+@if(Session::has('error'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: "Error",
+                text: "{{ Session::get('error') }}",
+                icon: "error"
+            });
+        });
+    </script>
+@endif
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 

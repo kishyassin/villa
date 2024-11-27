@@ -71,3 +71,7 @@
     transform: scale(1);
   }
 }
+
+.login-button{
+  padding: 20rem;
+}

@@ -84,18 +84,20 @@ class StripeController extends Controller
     /**
      * Handle successful payment.
      */
-    public function success()
+public function success()
 {
     DB::beginTransaction();
 
     try {
-        // Verify payment with Stripe if necessary (e.g., via webhook or session metadata)
+        // Verify the authenticated user
         $userId = Auth::id();
+        if (!$userId) {
+            throw new \Exception('User not authenticated.');
+        }
 
         // Retrieve metadata from session
-        $metadata = session('stripe_metadata');
-
-        if (!$metadata || !isset($metadata['start_date'], $metadata['end_date'])) {
+        $metadata = session('stripe_metadata', []);
+        if (!isset($metadata['start_date'], $metadata['end_date'], $metadata['price'])) {
             throw new \Exception('Missing metadata in session.');
         }
 
@@ -113,14 +115,13 @@ class StripeController extends Controller
 
         DB::commit();
 
-        // Pass data to session for display in the success page
-        session([
+        // Redirect to main directory with success message
+        return redirect()->route('home')->with([
+            'success' => 'Payment successful!',
             'start_date' => $startDate,
             'end_date' => $endDate,
             'price' => $price,
         ]);
-
-        return view('stripe.success')->with('success', 'Payment successful!');
     } catch (\Exception $e) {
         DB::rollBack();
         \Log::error('Stripe session error:', ['message' => $e->getMessage()]);
