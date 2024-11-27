@@ -211,17 +211,15 @@
     </div>
   </div>
 
-  <div class="video-content">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 offset-lg-1">
-          <div class="video-frame">
-            <img src="assets/images/video-frame.jpg" alt="">
-            <a href="https://youtube.com" target="_blank"><i class="fa fa-play"></i></a>
+    <div class="pannellum-content">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-10 offset-lg-1">
+                  <!-- Pannellum Viewer -->
+                  <div id="panorama" style="width: 100%; height: 500px;"></div>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
   </div>
 
   <div class="fun-facts">
@@ -319,28 +317,16 @@
           @csrf
           <div class="form-group mb-4">
             <label for="start_date" class="form-label">Starting Date</label>
-            <input type="date" id="start_date" name="start_date" class="form-control" required>
+            <input type="date" id="start_date" name="start_date" class="form-control" min="{{ now()->toDateString() }}" required>
           </div>
           <div class="form-group mb-4">
-            <label for="months" class="form-label">Number of Months</label>
-            <div class="custom-number-input">
-              <input
-                type="number"
-                id="months"
-                name="months"
-                class="form-control"
-                min="1"
-                max="12"
-                value="1"
-              >
-            </div>
+            <label for="end_date" class="form-label">Ending Date</label>
+            <input type="date" id="end_date" name="end_date" class="form-control" min="{{ now()->toDateString() }}" required>
           </div>
           <div class="form-group mb-4">
             <label for="amount" class="form-label">Amount to Pay</label>
-            <div id="amount" class="animated-amount">2000 MAD</div>
+            <div id="amount" class="animated-amount">0 MAD</div>
           </div>
-          <!-- Hidden End Date Field -->
-          <input type="hidden" id="end_date" name="end_date">
           <button type="submit" class="btn btn-primary">Proceed to Payment</button>
         </form>
       </div>
@@ -351,6 +337,7 @@
     </div>
   </div>
 </div>
+
 
 
 
@@ -441,6 +428,19 @@
 
 <!-- Include necessary JavaScript files -->
   <!-- jQuery -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css">
+  <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
+  <script>
+    // Initialize the Pannellum Viewer
+    pannellum.viewer('panorama', {
+        type: 'equirectangular',
+        panorama: 'assets/images/your-panorama-image.jpg', // Replace with your 360° image path
+        autoLoad: true,
+        compass: true,
+        showControls: true,
+        yaw: 180, // Default orientation
+    });
+</script>
   <script src="vendor/jquery/jquery.min.js"></script>
   <!-- Bootstrap Bundle with Popper -->
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -452,75 +452,48 @@
   <!-- Swiper JS -->
   <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
   <!-- Optional: Initialize Swiper or other plugins -->
- <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const monthsInput = document.getElementById("months");
-    const amountDisplay = document.getElementById("amount");
-    const startDateInput = document.getElementById("start_date");
-    const endDateInput = document.getElementById("end_date");
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const startDateInput = document.getElementById("start_date");
+  const endDateInput = document.getElementById("end_date");
+  const amountDisplay = document.getElementById("amount");
 
-    // Base price per month
-    const pricePerMonth = 2000;
+  // Price per day
+  const pricePerDay = 300;
 
-    // Update amount dynamically
-    const updateAmount = () => {
-      const months = parseInt(monthsInput.value, 10) || 0;
-      if (months <= 0) {
-        amountDisplay.textContent = ""; // Clear the amount if invalid
-      } else {
-        const newAmount = months * pricePerMonth;
-        amountDisplay.textContent = `${newAmount} MAD`;
+  // Calculate the total amount
+  const calculateAmount = () => {
+    const startDate = new Date(startDateInput.value);
+    const endDate = new Date(endDateInput.value);
 
-        // Add animation class for smooth changes
-        amountDisplay.classList.add("changed");
-        setTimeout(() => {
-          amountDisplay.classList.remove("changed");
-        }, 300);
-      }
-    };
+    if (startDate && endDate && endDate > startDate) {
+      // Calculate the number of days between the two dates
+      const timeDiff = endDate.getTime() - startDate.getTime();
+      const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
-    // Calculate the end date based on start date and months
-    const calculateEndDate = () => {
-      const startDate = new Date(startDateInput.value);
-      const months = parseInt(monthsInput.value, 10);
+      // Calculate the total price
+      const totalAmount = days * pricePerDay;
+      amountDisplay.textContent = `${totalAmount} MAD`;
 
-      if (startDate && !isNaN(months)) {
-        // Add the number of months to the starting date
-        const endDate = new Date(startDate);
-        endDate.setMonth(endDate.getMonth() + months);
+      // Add animation class for smooth changes
+      amountDisplay.classList.add("changed");
+      setTimeout(() => {
+        amountDisplay.classList.remove("changed");
+      }, 300);
+    } else {
+      amountDisplay.textContent = "0 MAD";
+    }
+  };
 
-        // Format the date to YYYY-MM-DD for the hidden input
-        const formattedEndDate = endDate.toISOString().split("T")[0];
-        endDateInput.value = formattedEndDate;
-      }
-    };
+  // Add event listeners for input changes
+  startDateInput.addEventListener("input", calculateAmount);
+  endDateInput.addEventListener("input", calculateAmount);
 
-    // Restrict input and handle arrow-based changes
-    monthsInput.addEventListener("input", () => {
-      let currentValue = parseInt(monthsInput.value, 10) || 1;
+  // Initialize amount on page load
+  calculateAmount();
+});
 
-      // Ensure the value stays within the allowed range (1 to 12)
-      if (currentValue < 1) {
-        currentValue = 1;
-      } else if (currentValue > 12) {
-        currentValue = 12;
-      }
-
-      // Update the input value to the corrected range if needed
-      monthsInput.value = currentValue;
-      updateAmount();
-      calculateEndDate();
-    });
-
-    // Add event listener for the start date input
-    startDateInput.addEventListener("input", calculateEndDate);
-
-    // Initialize default amount and end date on page load
-    updateAmount();
-    calculateEndDate();
-  });
-</script>
-
+  </script>
 
     <!-- JavaScript to toggle between static rating and form -->
     <script>
