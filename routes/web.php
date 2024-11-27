@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -29,4 +29,8 @@ Route::get('contact', function () {
 })->name('contact_us');
 
 // Authentification (routes générées par Laravel Breeze ou Jetstream)
+Route::get('/checkout', [StripeController::class, 'checkout'])->name('checkout');
+Route::post('/session', [StripeController::class, 'session'])->name('session');
+Route::get('/success', [StripeController::class, 'success'])->name('success');
+
 require __DIR__.'/auth.php';

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3d0021641647706e2b1a612ccba8aa5e",
+    "content-hash": "c24605573b979a7cb2517f926bb5bd7f",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -3138,6 +3138,70 @@
             "time": "2024-10-15T19:35:06+00:00"
         },
         {
+            "name": "mansoor/blade-lets-icons",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mansoorkhan96/blade-lets-icons.git",
+                "reference": "1dfa300ddcd171fc21e9fa7b49e85ff01d555658"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mansoorkhan96/blade-lets-icons/zipball/1dfa300ddcd171fc21e9fa7b49e85ff01d555658",
+                "reference": "1dfa300ddcd171fc21e9fa7b49e85ff01d555658",
+                "shasum": ""
+            },
+            "require": {
+                "blade-ui-kit/blade-icons": "^1.6",
+                "illuminate/support": "^9.0|^10.0|^11.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^7.0|^8.0|^9.0",
+                "phpunit/phpunit": "^9.0|^10.5|^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mansoor\\LetsIcons\\BladeLetsIconsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mansoor\\LetsIcons\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mansoor Ahmed"
+                }
+            ],
+            "description": "A package to easily make use of Lets Icons in your Laravel Blade views.",
+            "homepage": "https://github.com/mansoor96/blade-lets-icons",
+            "keywords": [
+                "Lets Icons",
+                "blade",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/mansoorkhan96/blade-lets-icons/issues",
+                "source": "https://github.com/mansoorkhan96/blade-lets-icons/tree/v1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/mansoorkhan96",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-05-19T05:15:13+00:00"
+        },
+        {
             "name": "masterminds/html5",
             "version": "2.9.0",
             "source": {
@@ -4894,6 +4958,65 @@
                 }
             ],
             "time": "2024-11-18T15:02:02+00:00"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "v16.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "48af6bc64ca8157b3fdce100e856069963bac466"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/48af6bc64ca8157b3fdce100e856069963bac466",
+                "reference": "48af6bc64ca8157b3fdce100e856069963bac466",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "3.5.0",
+                "phpstan/phpstan": "^1.2",
+                "phpunit/phpunit": "^5.7 || ^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stripe\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "support": {
+                "issues": "https://github.com/stripe/stripe-php/issues",
+                "source": "https://github.com/stripe/stripe-php/tree/v16.3.0"
+            },
+            "time": "2024-11-20T23:30:16+00:00"
         },
         {
             "name": "symfony/clock",

@@ -8,6 +8,12 @@ class Order extends Model
     use HasFactory;
 
     // Relation avec le modèle User
+    protected $fillable = [
+        'id',
+        'date_debut',
+        'date_fin',
+        'price_order',
+    ];
     public function user()
     {
         return $this->belongsTo(User::class, 'idUser');

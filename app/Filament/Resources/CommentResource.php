@@ -34,7 +34,7 @@ class CommentResource extends Resource
         return $table
         ->columns([
             TextColumn::make('comment_text')->label('Commentaire'),
-            TextColumn::make('user.name')->label('Utilisateur'),
+            TextColumn::make('user.name')->label('Utilisateur')->searchable(),
             BooleanColumn::make('is_accept_show')->label('Accepté')
                 ->trueIcon('heroicon-o-check')
                 ->falseIcon('heroicon-o-x-circle')
