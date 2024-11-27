@@ -10,6 +10,7 @@ class Villa extends Model
 
     // Définir les champs pouvant être assignés en masse
     protected $fillable = [
+        'id',
         'name',
         'description',
         'location',

@@ -22,6 +22,20 @@ return new class extends Migration {
             $table->timestamps(); // created_at et updated_at
         });
 
+        DB::table('villas')->insert([
+            'name' => 'Villa Sunset Paradise',
+            'description' => 'Une villa luxueuse avec vue sur la mer, parfaite pour des vacances inoubliables.',
+            'location' => 'Rue des Palmiers, Quartier Riviera',
+            'ville' => 'Marrakech',
+            'price' => 2500.00,
+            'rooms' => 3,
+            'bathrooms' => 2,
+            'area' => 150.50,
+            'is_available' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
         // Création de la table images
         Schema::create('villa_images', function (Blueprint $table) {
             $table->id(); // ID de l'image
