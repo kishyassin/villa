@@ -211,12 +211,14 @@
     </div>
   </div>
 
-    <div class="pannellum-content">
+    <div class="video-content">
       <div class="container">
           <div class="row">
               <div class="col-lg-10 offset-lg-1">
                   <!-- Pannellum Viewer -->
+                   <div class="video-frame">
                   <div id="panorama" style="width: 100%; height: 500px;"></div>
+                </div>
               </div>
           </div>
       </div>
