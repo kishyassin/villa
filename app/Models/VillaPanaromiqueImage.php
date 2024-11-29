@@ -13,14 +13,23 @@ class VillaPanaromiqueImage extends Model
         'image_path_panoramique',
     ];
 
-    public function getImagePathPanoramiqueAttribute($value)
+    // Accessor pour obtenir l'URL publique de l'image
+    public function getImagePathPanoramiqueUrlAttribute()
     {
-        return $value ?? ''; // Retourne une chaîne vide si aucune image
+        return $this->image_path_panoramique
+            ? asset('storage/' . $this->image_path_panoramique)
+            : null;
     }
 
-    public function setImagePathPanoramiqueAttribute($value)
+    // Supprime le fichier lorsque l'enregistrement est supprimé
+    protected static function boot()
     {
-        $this->attributes['image_path_panoramique'] = $value ?? ''; // Assurez-vous que l'image panoramique peut être vide
-    }
+        parent::boot();
 
+        static::deleting(function ($model) {
+            if ($model->image_path_panoramique) {
+                \Storage::disk('public')->delete($model->image_path_panoramique);
+            }
+        });
+    }
 }
