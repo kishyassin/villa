@@ -33,7 +33,7 @@ class VillaResource extends Resource
                 TextColumn::make('name')->label('Nom de la villa'),
                 TextColumn::make('location')->label('location')->words(2),
                 TextColumn::make('ville')->label('ville')->searchable(),
-                TextColumn::make('price')->label('Prix'),
+                TextColumn::make('price')->label('Prix')->money('MAD'),
                 TextColumn::make('description')->label('Description')->words(2),
                 TextColumn::make('rooms')->label("rooms"),
                 TextColumn::make('bathrooms')->label("bathrooms"),
@@ -48,10 +48,5 @@ class VillaResource extends Resource
                 // Add actions if needed
             ]);
     }
-    public static function relationManagers(): array
-    {
-        return [
-            'images' => VillaImagesRelationManager::class, // Assurez-vous que c'est le bon chemin
-        ];
-    }
+    
 }

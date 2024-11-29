@@ -35,20 +35,11 @@ return new class extends Migration {
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-        // Création de la table images
-        Schema::create('villa_images', function (Blueprint $table) {
-            $table->id(); // ID de l'image
-            $table->foreignId('villa_id')->constrained('villas')->onDelete('cascade'); // Clé étrangère vers villas
-            $table->string('image_path'); // Chemin de l'image
-            $table->timestamps(); // created_at et updated_at
-        });
     }
 
     public function down()
     {
         // Suppression des tables
-        Schema::dropIfExists('villa_images');
         Schema::dropIfExists('villas');
     }
 };

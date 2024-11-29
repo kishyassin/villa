@@ -23,8 +23,4 @@ class Villa extends Model
     ];
 
     // Relation avec les images
-    public function images()
-    {
-        return $this->hasMany(VillaImage::class);
-    }
 }
