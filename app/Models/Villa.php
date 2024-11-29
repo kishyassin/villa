@@ -14,17 +14,17 @@ class Villa extends Model
         'name',
         'description',
         'location',
+        'ville',
         'price',
         'rooms',
         'bathrooms',
         'area',
-        'ville',
         'is_available',
     ];
 
     // Relation avec les images
     public function images()
     {
-        return $this->hasMany(VillaImage::class);
+        return $this->hasMany(VillaImage::class, 'villa_id');
     }
 }

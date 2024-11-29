@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="assets/css/app.css">
 
   </head>
 
@@ -67,15 +68,44 @@
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
+                    <ul class="nav flex items-center">
                     <li><a href="{{ route('home') }}" class="active">Home</a></li>
                       <li><a href="{{ route('properties') }}">Property Details</a></li>
                       <li><a href="{{route('contact_us')}}">Contact Us</a></li>
-                      <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
+                      <li>
+                        @if (Route::has('login'))
+                @auth
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-item nav-link"><i class="fa fa-user" aria-hidden="true"></i></a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="{{ route('dashboard') }}" class="dropdown-item">modifier</a>
+                            <a href="/app" class="dropdown-item">dashboard</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a href="{{ route('logout') }}" class="dropdown-item"
+                                   onclick="event.preventDefault(); this.closest('form').submit();">
+                                    {{ __('Déconnecter') }}
+                                </a>
+                            </form>
+                        </div>
+                    </div>
+
+                @else
+                    <div
+                        class="sm:top-0 sm:right-0 ps-3 d-flex align-items-center justify-content-center text-right">
+                        <a href="{{ route('login') }}" class="btn btn-primary rounded-full">se connecter</a>
+                    </div>
+                @endauth
+            @endif
+                      </li>
+                    <li>
+                
+                    </li>
                   </ul>
-                    <a class='menu-trigger'>
+                    <!-- <a class='menu-trigger'>
                         <span>Menu</span>
-                    </a>
+                    </a> -->
+                   
                     <!-- ***** Menu End ***** -->
                 </nav>
             </div>
@@ -186,17 +216,17 @@
     </div>
   </div>
 
-  <div class="video-content">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 offset-lg-1">
-          <div class="video-frame">
-            <img src="assets/images/video-frame.jpg" alt="">
-            <a href="https://youtube.com" target="_blank"><i class="fa fa-play"></i></a>
+    <div class="video-content">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-10 offset-lg-1">
+                  <!-- Pannellum Viewer -->
+                   <div class="video-frame">
+                  <div id="panorama" style="width: 100%; height: 500px;"></div>
+                </div>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
   </div>
 
   <div class="fun-facts">
@@ -230,7 +260,8 @@
     </div>
   </div>
 
-  <div class="section best-deal">
+  
+   <div class="section best-deal">
     <div class="container">
       <div class="row">
         <div class="col-lg-4">
@@ -242,8 +273,8 @@
         <div class="col-lg-12">
           <div >
             <div class="row">
-              <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade" id="villa" role="tabpanel" aria-labelledby="villa-tab">
+              <div class="" >
+                <div class=""   >
                   <div class="row">
                     <div class="col-lg-3">
                       <div class="info-table">
@@ -263,12 +294,11 @@
                       <h4>Detail Info About Villa</h4>
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut labore et dolore magna aliqua quised ipsum suspendisse. <br><br>Swag fanny pack lyft blog twee. JOMO ethical copper mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella venmo after messenger poutine next level humblebrag swag franzen.</p>
                       <div class="icon-button">
-                        <a href="{{ route('properties') }}"><i class="fa fa-calendar"></i> Schedule a visit</a>
+                        <a href="property-details.html"><i class="fa fa-calendar"></i> Schedule a visit</a>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- osi -->
               </div>
             </div>
           </div>
@@ -276,6 +306,63 @@
       </div>
     </div>
   </div>
+
+  <div class="payment-section section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-heading text-center mb-4">
+          <h6>| Rent Payment</h6>
+          <h2>Pay for Your Villa Rental</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <!-- Left Column: Form -->
+      <div class="col-lg-6">
+        <form action="{{ route('stripe.session') }}" method="POST" class="payment-form">
+          @csrf
+          <div class="form-group mb-4">
+            <label for="start_date" class="form-label">Starting Date</label>
+            <input 
+              type="date" 
+              id="start_date" 
+              name="start_date" 
+              class="form-control" 
+              min="{{ now()->toDateString() }}" 
+              value="{{ now()->toDateString() }}" 
+              required
+          >
+          </div>
+          <div class="form-group mb-4">
+            <label for="end_date" class="form-label">Ending Date</label>
+            <input 
+                  type="date" 
+                  id="end_date" 
+                  name="end_date" 
+                  class="form-control" 
+                  min="{{ now()->toDateString() }}" 
+                  value="{{ now()->addDay()->toDateString() }}" 
+                  required
+              >
+          </div>
+          <div class="form-group mb-4">
+            <label for="amount" class="form-label">Amount to Pay</label>
+            <div id="amount" class="animated-amount">0 MAD</div>
+          </div>
+          <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+        </form>
+      </div>
+      <!-- Right Column: Image -->
+      <div class="col-lg-6 text-center">
+        <img src="assets/images/video-frame.jpg" alt="Villa" class="img-fluid payment-image">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 
   <div class="contact section">
@@ -362,14 +449,109 @@
     </div>
   </footer>
 
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
+<!-- Include necessary JavaScript files -->
+  <!-- jQuery -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css">
+  <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
+  <script>
+    // Initialize the Pannellum Viewer
+    pannellum.viewer('panorama', {
+        type: 'equirectangular',
+        panorama: 'assets/images/your-panorama-image.jpg', // Replace with your 360° image path
+        autoLoad: true,
+        compass: true,
+        showControls: true,
+        yaw: 180, // Default orientation
+    });
+</script>
   <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/js/isotope.min.js"></script>
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Additional JS Files -->
   <script src="assets/js/owl-carousel.js"></script>
-  <script src="assets/js/counter.js"></script>
+  <script src="assets/js/animation.js"></script>
+  <script src="assets/js/imagesloaded.js"></script>
   <script src="assets/js/custom.js"></script>
+  <!-- Swiper JS -->
+  <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+  <!-- Optional: Initialize Swiper or other plugins -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  const startDateInput = document.getElementById("start_date");
+  const endDateInput = document.getElementById("end_date");
+  const amountDisplay = document.getElementById("amount");
 
+  // Price per day
+  const pricePerDay = 300;
+
+  // Calculate the total amount
+  const calculateAmount = () => {
+    const startDate = new Date(startDateInput.value);
+    const endDate = new Date(endDateInput.value);
+
+    if (startDate && endDate && endDate > startDate) {
+      // Calculate the number of days between the two dates
+      const timeDiff = endDate.getTime() - startDate.getTime();
+      const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+      // Calculate the total price
+      const totalAmount = days * pricePerDay;
+      amountDisplay.textContent = `${totalAmount} MAD`;
+
+      // Add animation class for smooth changes
+      amountDisplay.classList.add("changed");
+      setTimeout(() => {
+        amountDisplay.classList.remove("changed");
+      }, 300);
+    } else {
+      amountDisplay.textContent = "0 MAD";
+    }
+  };
+
+  // Add event listeners for input changes
+  startDateInput.addEventListener("input", calculateAmount);
+  endDateInput.addEventListener("input", calculateAmount);
+
+  // Initialize amount on page load
+  calculateAmount();
+});
+
+  </script>
+
+    <!-- JavaScript to toggle between static rating and form -->
+    <script>
+        document.getElementById('modifyBtn').addEventListener('click', function () {
+            document.getElementById('staticRating').style.display = 'none';
+            document.getElementById('ratingForm').style.display = 'block';
+        });
+    </script>
+
+
+   @if(Session::has('success'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: "Success",
+                text: "{{ Session::get('success') }}",
+                icon: "success"
+            });
+        });
+    </script>
+@endif
+
+@if(Session::has('error'))
+    <script>
+        $(document).ready(function () {
+            Swal.fire({
+                title: "Error",
+                text: "{{ Session::get('error') }}",
+                icon: "error"
+            });
+        });
+    </script>
+@endif
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
+
 </html>

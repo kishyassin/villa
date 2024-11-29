@@ -4,10 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+class CreateOrdersTable extends Migration
+{
     public function up()
     {
-        // Création de la table
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idUser');
@@ -17,13 +17,10 @@ return new class extends Migration {
             $table->timestamps(); // Ajoute created_at et updated_at
             $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
         });
-
-        // Insérer une ligne par défaut après la création de la table (optionnel)
     }
 
     public function down()
     {
-        // Suppression de la table
         Schema::dropIfExists('orders');
     }
-};
+}

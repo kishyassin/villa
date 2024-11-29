@@ -10,6 +10,7 @@
         "filament/filament": "*",
         "filament/tables": "^3.2",
         "laravel/framework": "^11.31",
+        "laravel/telescope": "^5.2",
         "laravel/tinker": "^2.9",
         "mansoor/blade-lets-icons": "^1.0",
         "stripe/stripe-php": "^16.3"
