@@ -110,7 +110,7 @@ public function success()
             'idUser' => $userId,
             'date_debut' => $startDate,
             'date_fin' => $endDate,
-            'is_accept' => true, // Mark as accepted after payment
+            'price_order' => $price, // Mark as accepted after payment
         ]);
 
         DB::commit();

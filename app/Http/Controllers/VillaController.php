@@ -101,4 +101,7 @@ class VillaController extends Controller
 
         return redirect()->route('villas.index')->with('success', 'Villa deleted successfully.');
     }
+    
+
 }
+   

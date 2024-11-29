@@ -315,6 +315,62 @@ Pre-loader Style
 Header Style
 --------------------------------------------- 
 */
+/* Login Section */
+/* Dropdown menu styles */
+.dropdown-menu {
+  display: none; /* Hidden by default */
+  position: absolute;
+  right: 0;
+  z-index: 50;
+  min-width: 12rem; /* Adjust width as needed */
+  padding: 0.5rem 0;
+  background-color: #ffffff;
+  border-radius: 0.375rem; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block; /* Show on hover */
+}
+
+/* Dropdown item styles */
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  color: #4a5568; /* Gray 700 */
+  font-size: 0.875rem; /* Small text */
+  text-decoration: none;
+  display: block;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #edf2f7; /* Gray 100 */
+}
+
+/* Custom styles for the 'Se connecter' button */
+.login-btn {
+  display: flex;
+  align-items: center;  /* Ensures the button text is vertically centered */
+  justify-content: center;  /* Horizontally center the text */
+  font-weight: 500;
+  font-size: 15px;
+  text-transform: capitalize;
+  letter-spacing: 0.25px;
+  height: 40px;  /* Maintain consistent height with other navigation items */
+  padding: 0 20px;  /* Adjust horizontal padding */
+  margin-top: 0;  /* Ensure no extra space on top */
+  transition: background-color 0.3s ease;  /* Smooth transition effect */
+}
+
+.login-btn:hover {
+  background-color: #f35525;  /* Set hover background color */
+}
+
+.login-btn:focus {
+  outline: none;  /* Remove default focus outline */
+}
+
 
 .sub-header {
   background-color: #fff;
@@ -384,7 +440,9 @@ Header Style
   -o-transition: all .5s ease 0s;
   transition: all .5s ease 0s;
 }
-
+.connect-btn:hover {
+  color: #f35525;
+}
 .header-area {
   position: relative;
   background-color: #fff;
@@ -434,9 +492,9 @@ Header Style
   z-index: 999;
 }
 
-.header-area .main-nav .nav li:last-child {
+/* .header-area .main-nav .nav li:last-child {
   padding-right: 0px;
-}
+} */
 
 .header-area .main-nav .nav li {
   padding-left: 10px;
@@ -445,7 +503,7 @@ Header Style
   line-height: 100px;
 }
 
-.header-area .main-nav .nav li a {
+.header-area .main-nav .nav li  a  {
   display: block;
   padding-left: 20px;
   padding-right: 20px;
@@ -462,8 +520,29 @@ Header Style
   border: transparent;
   letter-spacing: .25px;
 }
+.header-area .main-nav .dropdown-item:hover {
+  color: #0056b3; /* Change to the desired hover color */
+  background: #f1f1f1; /* Optional hover background */
+}
+.dropdown-item {
+  display: block;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: 500;
+  font-size: 15px;
+  height: 40px; /* Keep the height consistent */
+  line-height: 40px; /* Make line-height equal to height for vertical centering */
+  text-transform: capitalize;
+  color: #1e1e1e;
+  background: transparent;
+  border: none;
+  letter-spacing: 0.25px;
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+}
 
-.header-area .main-nav .nav li:last-child a {
+
+/* .header-area .main-nav .nav li:last-child a {
   background-color: #1e1e1e;
   color: #fff;
   font-size: 14px;
@@ -471,9 +550,9 @@ Header Style
   text-transform: none;
   border-radius: 20px;
   padding-left: 0px;
-}
+} */
 
-.header-area .main-nav .nav li:last-child a i {
+/* .header-area .main-nav .nav li:last-child a i {
   background-color: #f35525;
   display: inline-block;
   width: 40px;
@@ -483,21 +562,21 @@ Header Style
   margin-right: 10px;
   border-radius: 50%;
   margin-left: -1px;
-}
+} */
 
-.header-area .main-nav .nav li:last-child:hover a {
+/* .header-area .main-nav .nav li:last-child:hover a {
   background-color: #1e1e1e;
-}
+} */
 
-.header-area .main-nav .nav li:last-child:hover a i {
+/* .header-area .main-nav .nav li:last-child:hover a i {
   color: #fff;
-}
+} */
 
-.header-area .main-nav .nav li:hover a {
+.header-area .main-nav .nav li:hover a:hover {
   color: #f35525;
 }
 
-.header-area .main-nav .nav li a.active {
+.header-area .main-nav .nav .dropdown-item:hover {
   color: #f35525;
 }
 

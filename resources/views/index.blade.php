@@ -41,7 +41,7 @@
   <div class="sub-header">
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-8">
+        <div class="col-lg-6 col-md-8">
           <ul class="info">
             <li><i class="fa fa-envelope"></i>{{$configurations->title}}</li>
             <li><i class="fa fa-map"></i>{{$configurations->addresse}}</li>
@@ -57,61 +57,66 @@
   </div>
 
   <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="{{route('home')}}" class="logo ">
-                        <h1 style="white-space: nowrap;">{{$configurations->title}}</h1>
-                    </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav flex items-center">
-                    <li><a href="{{ route('home') }}" class="active">Home</a></li>
-                      <li><a href="{{ route('properties') }}">Property Details</a></li>
-                      <li><a href="{{route('contact_us')}}">Contact Us</a></li>
-                      <li>
-                        @if (Route::has('login'))
-                @auth
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-item nav-link"><i class="fa fa-user" aria-hidden="true"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a href="{{ route('dashboard') }}" class="dropdown-item">modifier</a>
-                            <a href="/app" class="dropdown-item">dashboard</a>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <a href="{{ route('logout') }}" class="dropdown-item"
-                                   onclick="event.preventDefault(); this.closest('form').submit();">
-                                    {{ __('Déconnecter') }}
-                                </a>
-                            </form>
-                        </div>
-                    </div>
+ <header class="header-area header-sticky bg-white shadow-md">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center">
+      <!-- Logo and Navigation Menu -->
+      <div class="flex items-center">
+        <nav class="main-nav flex items-center justify-center">
+          <!-- Logo -->
+          <a href="{{ route('home') }}" class="logo">
+            <h1 class="text-lg font-semibold text-gray-900">{{ $configurations->title }}</h1>
+          </a>
 
-                @else
-                    <div
-                        class="sm:top-0 sm:right-0 ps-3 d-flex align-items-center justify-content-center text-right">
-                        <a href="{{ route('login') }}" class="btn btn-primary rounded-full">se connecter</a>
-                    </div>
-                @endauth
-            @endif
-                      </li>
-                    <li>
-                
-                    </li>
-                  </ul>
-                    <!-- <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a> -->
-                   
-                    <!-- ***** Menu End ***** -->
-                </nav>
+          <!-- Menu -->
+          <ul class="nav flex space-x-4 ml-4">
+            <li>
+              <a href="{{ route('home') }}" class="text-gray-700 hover:text-blue-600">Home</a>
+            </li>
+            <li>
+              <a href="{{ route('properties') }}" class="text-gray-700 hover:text-blue-600">Property Details</a>
+            </li>
+            <li>
+              <a href="{{ route('contact_us') }}" class="text-gray-700 hover:text-blue-600">Contact Us</a>
+            </li>
+            <li class="text-center">
+              <div class="flex items-center">
+        @if (Route::has('login'))
+          @auth
+            <div class="relative dropdown">
+              <a href="#" class="flex items-center text-gray-700 hover:text-blue-600">
+                <i class="fa fa-user text-xl"></i>
+              </a>
+              <div class="dropdown-menu">
+                <a href="{{ route('dashboard') }}" class="dropdown-item text-center ">Modifier</a>
+                <a href="/app" class="dropdown-item text-center">Dashboard</a>
+                <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+                  <button type="submit" class="dropdown-item dropdown-button text-center">
+                    {{ __('Déconnecter') }}
+                  </button>
+                </form>
+              </div>
             </div>
-        </div>
+          @else
+            <a href="{{ route('login') }}" class="text-black  text-center rounded-full connect-btn">
+                Se connecter
+            </a>
+            @endauth
+        @endif
+      </div>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Login/Dropdown Section -->
+      
     </div>
-  </header>
+  </div>
+</header>
+
+
   <!-- ***** Header Area End ***** -->
 
   <div class="main-banner">
@@ -261,51 +266,52 @@
   </div>
 
   
-   <div class="section best-deal">
+  <div class="section best-deal">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="section-heading">
-            <h6>| Best Deal</h6>
-            <h2>Find Your Best Deal Right Now!</h2>
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div >
-            <div class="row">
-              <div class="" >
-                <div class=""   >
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="info-table">
-                        <ul>
-                          <li>Total Flat Space <span>250 m2</span></li>
-                          <li>Floor number <span>26th</span></li>
-                          <li>Number of rooms <span>5</span></li>
-                          <li>Parking Available <span>Yes</span></li>
-                          <li>Payment Process <span>Bank</span></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-lg-6">
-                      <img src="assets/images/deal-02.jpg" alt="">
-                    </div>
-                    <div class="col-lg-3">
-                      <h4>Detail Info About Villa</h4>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut labore et dolore magna aliqua quised ipsum suspendisse. <br><br>Swag fanny pack lyft blog twee. JOMO ethical copper mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella venmo after messenger poutine next level humblebrag swag franzen.</p>
-                      <div class="icon-button">
-                        <a href="property-details.html"><i class="fa fa-calendar"></i> Schedule a visit</a>
-                      </div>
-                    </div>
-                  </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="section-heading">
+                    <h6>| Best Deal</h6>
+                    <h2>Find Your Best Deal Right Now!</h2>
                 </div>
-              </div>
             </div>
-          </div>
+            <div class="col-lg-12">
+                <div>
+                    <div class="row">
+                        <div class="">
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="info-table">
+                                            <ul>
+                                                <li>Total Flat Space <span>{{ $villas->area }} m2</span></li>
+                                                <li>Floor number <span>{{ $villas->floor_number ?? 'N/A' }}</span></li>
+                                                <li>Number of rooms <span>{{ $villas->rooms }}</span></li>
+                                                <li>Number of Bathrooms <span>{{ $villas->bathrooms ?? '1' }}</span></li>
+                                                <li>Price Per Day <span>{{ $villas->price ?? 'N/A' }}</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                      <img src="assets/images/deal-02.jpg" alt="">     
+                                      </div>
+                                    <div class="col-lg-3">
+                                        <h4>Detail Info About Villa</h4>
+                                        <p>{{ $villas->description }}</p>
+                                        <div class="icon-button">
+                                            <a href="property-details.html"><i class="fa fa-calendar"></i> Schedule a visit</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+
 
   <div class="payment-section section">
   <div class="container">
@@ -482,7 +488,7 @@
   const amountDisplay = document.getElementById("amount");
 
   // Price per day
-  const pricePerDay = 300;
+  const pricePerDay = {{ $villas->price }};
 
   // Calculate the total amount
   const calculateAmount = () => {

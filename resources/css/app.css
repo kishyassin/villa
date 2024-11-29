@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .payment-section {
   padding: 60px 0;
 }
@@ -72,6 +76,3 @@
   }
 }
 
-.login-button{
-  padding: 20rem;
-}
