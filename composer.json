@@ -7,9 +7,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "filament/filament": "^3.2",
+        "filament/filament": "*",
+        "filament/tables": "^3.2",
         "laravel/framework": "^11.31",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "mansoor/blade-lets-icons": "^1.0",
+        "stripe/stripe-php": "^16.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

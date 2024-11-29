@@ -42,13 +42,13 @@
       <div class="row">
         <div class="col-lg-8 col-md-8">
           <ul class="info">
-            <li><i class="fa fa-envelope"></i> {{$configurations->mail}}</li>
-            <li><i class="fa fa-map"></i> {{$configurations->addresse}}</li>
+            <li><i class="fa fa-envelope"></i>{{$configurations->title}}</li>
+            <li><i class="fa fa-map"></i>{{$configurations->addresse}}</li>
           </ul>
         </div>
         <div class="col-lg-4 col-md-4">
             <ul class="info">
-                <li><i class="fa fa-phone"></i> {{$configurations->phone}}</li>
+                <li><i class="fa fa-phone"></i>{{$configurations->phone}}</li>
             </ul>
         </div>
       </div>
@@ -62,16 +62,15 @@
             <div class="col-12">
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo ">
+                    <a href="{{route('home')}}" class="logo ">
                         <h1 style="white-space: nowrap;">{{$configurations->title}}</h1>
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
-                      <li><a href="index.html" class="active">Home</a></li>
-                      <li><a href="properties.html">Properties</a></li>
-                      <li><a href="property-details.html">Property Details</a></li>
-                      <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="{{ route('home') }}" class="active">Home</a></li>
+                      <li><a href="{{ route('properties') }}">Property Details</a></li>
+                      <li><a href="{{route('contact_us')}}">Contact Us</a></li>
                       <li><a href="#"><i class="fa fa-calendar"></i> Schedule a visit</a></li>
                   </ul>
                     <a class='menu-trigger'>
@@ -89,7 +88,7 @@
     <div class="owl-carousel owl-banner">
       <div class="item item-1">
         <div class="header-text">
-          <span class="category">Toronto, <em>Canada</em></span>
+          <span class="category">{{$villas->ville}}</span>
           <h2>Hurry!<br>Get the Best Villa for you</h2>
         </div>
       </div>
@@ -102,7 +101,7 @@
         <div class="col-lg-4">
           <div class="left-image">
             <img src="assets/images/featured.jpg" alt="">
-            <a href="property-details.html"><img src="assets/images/featured-icon.png" alt="" style="max-width: 60px; padding: 0px;"></a>
+            <a href="{{ route('properties') }}"><img src="assets/images/featured-icon.png" alt="" style="max-width: 60px; padding: 0px;"></a>
           </div>
         </div>
         <div class="col-lg-5">
@@ -243,8 +242,8 @@
         <div class="col-lg-12">
           <div >
             <div class="row">
-              <div class="" >
-                <div class=""   >
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade" id="villa" role="tabpanel" aria-labelledby="villa-tab">
                   <div class="row">
                     <div class="col-lg-3">
                       <div class="info-table">
@@ -264,11 +263,12 @@
                       <h4>Detail Info About Villa</h4>
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, do eiusmod tempor pack incididunt ut labore et dolore magna aliqua quised ipsum suspendisse. <br><br>Swag fanny pack lyft blog twee. JOMO ethical copper mug, succulents typewriter shaman DIY kitsch twee taiyaki fixie hella venmo after messenger poutine next level humblebrag swag franzen.</p>
                       <div class="icon-button">
-                        <a href="property-details.html"><i class="fa fa-calendar"></i> Schedule a visit</a>
+                        <a href="{{ route('properties') }}"><i class="fa fa-calendar"></i> Schedule a visit</a>
                       </div>
                     </div>
                   </div>
                 </div>
+                <!-- osi -->
               </div>
             </div>
           </div>
