@@ -89,7 +89,6 @@
               </a>
               <div class="dropdown-menu">
                 <a href="{{ route('dashboard') }}" class="dropdown-item text-center ">Modifier</a>
-                <a href="/app" class="dropdown-item text-center">Dashboard</a>
                 <form method="POST" action="{{ route('logout') }}">
                   @csrf
                   <button type="submit" class="dropdown-item dropdown-button text-center">
@@ -111,7 +110,7 @@
       </div>
 
       <!-- Login/Dropdown Section -->
-      
+
     </div>
   </div>
 </header>
@@ -265,7 +264,7 @@
     </div>
   </div>
 
-  
+
   <div class="section best-deal">
     <div class="container">
         <div class="row">
@@ -293,7 +292,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-5">
-                                      <img src="assets/images/deal-02.jpg" alt="">     
+                                      <img src="assets/images/deal-02.jpg" alt="">
                                       </div>
                                     <div class="col-lg-3">
                                         <h4>Detail Info About Villa</h4>
@@ -330,25 +329,25 @@
           @csrf
           <div class="form-group mb-4">
             <label for="start_date" class="form-label">Starting Date</label>
-            <input 
-              type="date" 
-              id="start_date" 
-              name="start_date" 
-              class="form-control" 
-              min="{{ now()->toDateString() }}" 
-              value="{{ now()->toDateString() }}" 
+            <input
+              type="date"
+              id="start_date"
+              name="start_date"
+              class="form-control"
+              min="{{ now()->toDateString() }}"
+              value="{{ now()->toDateString() }}"
               required
           >
           </div>
           <div class="form-group mb-4">
             <label for="end_date" class="form-label">Ending Date</label>
-            <input 
-                  type="date" 
-                  id="end_date" 
-                  name="end_date" 
-                  class="form-control" 
-                  min="{{ now()->toDateString() }}" 
-                  value="{{ now()->addDay()->toDateString() }}" 
+            <input
+                  type="date"
+                  id="end_date"
+                  name="end_date"
+                  class="form-control"
+                  min="{{ now()->toDateString() }}"
+                  value="{{ now()->addDay()->toDateString() }}"
                   required
               >
           </div>

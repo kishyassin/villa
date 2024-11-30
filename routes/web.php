@@ -5,13 +5,16 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VillaController;
+use App\Http\Controllers\DashboardController;
 
 // Route for the home page
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Dashboard route
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    // Récupérez l'utilisateur authentifié
+    $user = Auth::user();
+    return view('dashboard', compact('user')); // Passez l'utilisateur à la vue
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Protected routes with 'auth' middleware
