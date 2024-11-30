@@ -15,24 +15,13 @@ class VillaSousHeroImage extends Model
 
     public function getImagePathSousHeroAttribute($value)
     {
-        return $value ? json_decode($value, true) : []; // Retourne un tableau ou un tableau vide si null
+        return $value ?? ''; // Retourne une chaîne vide si aucune image
     }
 
     public function setImagePathSousHeroAttribute($value)
     {
-        if (is_array($value)) {
-            // Si l'image ajoutée est vide, on ne modifie pas la liste
-            $currentImages = $this->image_path_sous_hero ?? [];
-            $currentImages = array_filter($currentImages); // Supprimer les valeurs vides
-
-            // Ajouter les nouvelles images, tout en évitant les doublons vides
-            $newImages = array_merge($currentImages, array_filter($value));
-
-            // Convertir de nouveau en JSON et sauvegarder
-            $this->attributes['image_path_sous_hero'] = json_encode($newImages);
-        } else {
-            $this->attributes['image_path_sous_hero'] = json_encode([]);
-        }
+        $this->attributes['image_path_sous_hero'] = $value ?? ''; // Assurez-vous que l'image panoramique peut être vide
     }
+
 
 }

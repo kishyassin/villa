@@ -15,9 +15,6 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Repeater;
-
-
 
 class VillaSmallImagesResource extends Resource
 {
@@ -29,15 +26,10 @@ class VillaSmallImagesResource extends Resource
     {
         return $form
             ->schema([
-                Repeater::make('image_path_small_image')
-                    ->label('Petites Images')
-                    ->schema([
-                        FileUpload::make('image')
-                            ->label('Petite Image')
-                            ->maxFiles(5) // Vous pouvez ajuster ce nombre selon vos besoins
-                            ->multiple(), // Permet plusieurs fichiers
-                    ])
-                    ->columns(1),
+                FileUpload::make('image_path_small_image')
+                    ->label('Images Small images')
+                    ->directory('small_images')
+                    ->multiple(), // Permet plusieurs images // Limité à 2 images
             ]);
     }
 
@@ -45,11 +37,9 @@ class VillaSmallImagesResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('image_path_small_image')
-                    ->label('Petites Images')
-                    ->getStateUsing(fn ($record) => is_array($record->image_path_petit_image)
-                    ? implode(', ', $record->image_path_sous_hero) // Si c'est un tableau, on l'implose
-                    : $record->image_path_sous_hero),
+                    ImageColumn::make('image_path_small_image')
+                    ->label('Image Hero')
+                    ->size(50), // Taille de l'aperçu
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

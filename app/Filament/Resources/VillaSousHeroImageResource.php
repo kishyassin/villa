@@ -40,13 +40,11 @@ class VillaSousHeroImageResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                TextColumn::make('image_path_sous_hero')
-                ->label('Sous-Hero')
-                ->getStateUsing(fn ($record) => is_array($record->image_path_sous_hero)
-                 ? implode(', ', $record->image_path_sous_hero) // Si c'est un tableau, on l'implose
-                 : $record->image_path_sous_hero), // Sinon, on garde la chaîne telle quelle
-            ])
+        ->columns([
+            ImageColumn::make('image_path_sous_hero')
+            ->label('Image Hero')
+            ->size(50), // Taille de l'aperçu
+        ])
             ->filters([
                 //
             ])

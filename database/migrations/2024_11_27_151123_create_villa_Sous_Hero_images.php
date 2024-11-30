@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('villa_sous_Hero_images', function (Blueprint $table) {
             $table->id(); // Plusieurs petites images en format JSON
-            $table->json('image_path_sous_hero'); // Plusieurs images sous-hero en format JSON
+            $table->string('image_path_sous_hero'); // Plusieurs images sous-hero en format JSON
             $table->timestamps();
         });
     }
