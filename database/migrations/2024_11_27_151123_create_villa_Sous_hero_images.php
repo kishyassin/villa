@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('villa_sous_Hero_images', function (Blueprint $table) {
+        Schema::create('villa_sous_hero_images', function (Blueprint $table) {
             $table->id(); // Plusieurs petites images en format JSON
             $table->json('image_path_sous_hero'); // Plusieurs images sous-hero en format JSON
             $table->timestamps();
@@ -17,7 +17,7 @@ return new class extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('villa_sous_Hero_images');
+        Schema::dropIfExists('villa_sous_hero_images');
     }
 };
 
