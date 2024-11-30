@@ -14,7 +14,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', function () {
     // Récupérez l'utilisateur authentifié
     $user = Auth::user();
-    return view('dashboard', compact('user')); // Passez l'utilisateur à la vue
+    return redirect()->route('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Protected routes with 'auth' middleware
