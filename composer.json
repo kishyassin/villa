@@ -13,7 +13,8 @@
         "laravel/telescope": "^5.2",
         "laravel/tinker": "^2.9",
         "mansoor/blade-lets-icons": "^1.0",
-        "stripe/stripe-php": "^16.3"
+        "stripe/stripe-php": "^16.3",
+        "symfony/filesystem": "^7.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
