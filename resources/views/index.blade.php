@@ -39,6 +39,7 @@
                 <div class="col-lg-4">
                     <div class="left-image">
                         <img src="" alt="">
+
                     </div>
                 </div>
                 <div class="col-lg-5">
@@ -363,5 +364,6 @@
             </div>
         </div>
     </div>
+
 
 @endsection
