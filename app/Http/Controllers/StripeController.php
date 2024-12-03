@@ -17,7 +17,7 @@ class StripeController extends Controller
     {
         \Log::info('Stripe session hit.', $request->all());
         \Log::info('User ID:', [Auth::id()]);
-        
+
         // Validate input
         $data = $request->validate([
             'start_date' => 'required|date|after_or_equal:today',
@@ -135,7 +135,7 @@ public function success()
      */
     public function cancel()
     {
-        return redirect()->route('stripe/cancel')->with('error', 'Payment was canceled.');
+        return redirect()->route('home')->with('error', 'Payment was canceled.');
     }
 
     /**

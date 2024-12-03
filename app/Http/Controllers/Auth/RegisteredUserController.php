@@ -31,22 +31,20 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'numtelephone' => ['required', 'string', 'max:15'], // Validation du numéro de téléphone
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
-            'numtelephone' => $request->numtelephone,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
 
-        // Auth::login($user);
+        Auth::login($user);
 
-        return redirect()->route('login')->with('status', 'Registration successful! Please log in.');
+        return redirect(route('dashboard', absolute: false));
     }
 }

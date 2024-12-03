@@ -6,15 +6,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\VillaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CommentController;
 
 // Route for the home page
+Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Dashboard route
 Route::get('/dashboard', function () {
     // Récupérez l'utilisateur authentifié
     $user = Auth::user();
-    return view('dashboard', compact('user')); // Passez l'utilisateur à la vue
+    return redirect()->route('home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Protected routes with 'auth' middleware
@@ -47,6 +50,14 @@ Route::resource('villas', VillaController::class)->only(['show']);
 Route::get('contact', function () {
     return view('contact');
 })->name('contact_us');
+
+
+
+// Afficher la page d'inscription
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+
+// Gérer la soumission du formulaire d'inscription
+Route::post('/register', [RegisteredUserController::class, 'store']);
 
 // Authentication routes
 require __DIR__.'/auth.php';

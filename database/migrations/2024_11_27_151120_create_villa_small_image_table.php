@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('villa_small_images', function (Blueprint $table) {
             $table->id();
-            $table->string('image_path_small_image');  // Plusieurs petites images en format JSON
+            $table->json('image_path_small_image');  // Plusieurs petites images en format JSON
             $table->timestamps();
         });
     }
