@@ -1,8 +1,55 @@
 @extends('layouts.villa')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const navLinks = document.querySelectorAll(".slider-nav a");
+    const slides = document.querySelectorAll(".slider .slide-item");
+    const slider = document.querySelector(".slider");
+    let currentSlide = 0;
 
+    // Initially, add the active class to the first slide nav button
+    navLinks[0].classList.add("active");
+
+    navLinks.forEach((link, index) => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            // Remove active class from all buttons
+            navLinks.forEach(navLink => navLink.classList.remove("active"));
+
+            // Add active class to the clicked button
+            link.classList.add("active");
+
+            // Update current slide
+            currentSlide = index;
+
+            // Scroll to the corresponding slide
+            const offset = -100 * currentSlide; // This will scroll the slider by the width of the slides
+            slider.style.transform = `translateX(${offset}%)`;
+        });
+    });
+
+    // Optionally, automatically activate the corresponding nav link when scrolling
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const index = [...slides].indexOf(entry.target);
+                navLinks.forEach(navLink => navLink.classList.remove("active"));
+                navLinks[index].classList.add("active");
+            }
+        });
+    }, { threshold: 0.5 });  // Adjust threshold to trigger when 50% of the slide is visible
+
+    slides.forEach(slide => {
+        observer.observe(slide);
+    });
+});
+
+</script>
     <!-- ***** Preloader Start ***** -->
     <div id="js-preloader" class="js-preloader">
         <div class="preloader-inner">
@@ -20,25 +67,38 @@
     <!-- ***** Header Area Start ***** -->
 
 
-    <!-- ***** Header Area End ***** -->
-
-    <div class="main-banner">
-        <div class="owl-carousel owl-banner">
-            <div class="item item-1">
-                <div class="header-text">
-                    <span class="category">{{$villas->ville}}</span>
-                    <h2>Hurry!<br>Get the Best Villa for you</h2>
+<section class="container rounded-2xl">
+    <div class="slider-wrapper ">
+        <div class="slider ">
+            @foreach ($Heroimages as $index => $image)
+                <div class="slide-item ">
+                    <img id="slide-{{ $index + 1 }}" src="{{ $image }}" alt="Slide {{ $index + 1 }}" class="" />
+                    <!-- Text overlay -->
+                    <div class="header-text">
+                        <span class="category">{{$villas->ville}}</span>
+                        <h2 class="text-white max-w-[100px] text-wrap">Hurry!<br>Get the Best Villa for you</h2>
+                    </div>
                 </div>
-            </div>
+            @endforeach
+        </div>
+        <div class="slider-nav">
+            @foreach ($Heroimages as $index => $image)
+                <a href="#slide-{{ $index + 1 }}" class="p-2 bg-[#555] rounded-full"></a>
+            @endforeach
         </div>
     </div>
+</section>
+
+
+
+
 
     <div class="featured section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="left-image">
-                        <img src="" alt="">
+                    <div class="left-image ">
+                        <img src={{$squareImage}} alt="" class="">
 
                     </div>
                 </div>
@@ -137,36 +197,7 @@
         </div>
     </div>
 
-    <div class="fun-facts">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="wrapper">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="counter">
-                                    <h2 class="timer count-title count-number" data-to="34" data-speed="1000"></h2>
-                                    <p class="count-text ">Buildings<br>Finished Now</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="counter">
-                                    <h2 class="timer count-title count-number" data-to="12" data-speed="1000"></h2>
-                                    <p class="count-text ">Years<br>Experience</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="counter">
-                                    <h2 class="timer count-title count-number" data-to="24" data-speed="1000"></h2>
-                                    <p class="count-text ">Awwards<br>Won 2023</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+ 
 
 
     <div class="section best-deal">
@@ -367,3 +398,4 @@
 
 
 @endsection
+

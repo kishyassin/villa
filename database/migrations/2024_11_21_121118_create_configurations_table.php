@@ -11,16 +11,16 @@ return new class extends Migration {
         // Création de la table
         Schema::create('configurations', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->default('omar');
-            $table->string('mail')->default('kahbou omar');
+            $table->string('title')->default('Villa');
+            $table->string('mail')->default('example.mail');
             $table->string('addresse')->default('marrakech');
             $table->string('phone')->default('000-0999-0000');
         });
 
         // Insérer une ligne par défaut après la création de la table
         DB::table('configurations')->insert([
-            'title' => 'omar',
-            'mail' => 'kahbou omar',
+            'title' => 'Villa',
+            'mail' => 'example.mail',
             'addresse' => 'marrakech',
             'phone' => '000-0999-0000',
         ]);

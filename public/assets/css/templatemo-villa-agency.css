@@ -815,27 +815,59 @@ Banner Style
 --------------------------------------------- 
 */
 
-.main-banner .item {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding: 220px 20% 320px 20%;
-  margin-top: 0px;
+/* General container styles */
+.container {
+  width: 100%;
+  padding: 0;
 }
 
-.main-banner .item-1 {
-  background-image: url(../images/banner-01.jpg);
+/* Slider wrapper to manage the overflow and positioning */
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 1rem;
+  /* Hide the overflow so that only one image is visible at a time */
 }
 
-.main-banner .item-2 {
-  background-image: url(../images/banner-02.jpg);
+/* The main slider container that holds the images */
+.slider {
+  display: flex;
+  width: 100%;
+  transition: transform 0.5s ease;
+  box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
+  
 }
 
-.main-banner .item-3 {
-  background-image: url(../images/banner-03.jpg);
+/* Each slide should take up the full width of the container */
+.slide-item {
+  position: relative;
+  min-width: 100%;
+  /* Each slide takes 100% of the container width */
+  scroll-snap-align: start;
 }
 
-.main-banner .item span.category {
+/* Styling for the images within the slider */
+.slide-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The text on top of the image */
+.header-text {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  color: white;
+  z-index: 2;
+  /* Ensure text stays above the images */
+  max-width: 600px;
+}
+
+.category {
   background-color: #fff;
   color: #1e1e1e;
   font-size: 16px;
@@ -843,83 +875,45 @@ Banner Style
   text-transform: capitalize;
   padding: 6px 15px;
   display: inline-block;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
-.main-banner .item span.category em {
-  font-style: normal;
-  color: #f35525;
-}
-
-.main-banner .item h2 {
-  font-size: 62px;
+.header-text h2 {
+  font-size: 40px;
   font-weight: 700;
   text-transform: uppercase;
-  color: #fff;
-  line-height: 72px;
-  width: 50%;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 
-.main-banner .owl-dots {
+/* Slider navigation buttons */
+.slider-nav {
+  display: flex;
+  column-gap: 1rem;
   position: absolute;
-  bottom: 60px;
-  left: 20%;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  /* Ensure nav buttons are above the images */
 }
 
-.main-banner .owl-dots .owl-dot {
-  width: 10px;
-  height: 10px;
-  background-color: #fff;
-  border-radius: 50%;
-  margin-right: 10px;
-  transition: all .5s;
-}
-
-.main-banner .owl-dots .active {
-  background-color: #f35525;
-}
-
-.main-banner .owl-nav {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50px);
-}
-
-.main-banner .owl-nav .owl-prev i,
-.main-banner .owl-nav .owl-next i {
-  width: 50px;
-  height: 50px;
-  line-height: 50px;
-  font-size: 24px;
+/* Styling for each slider navigation button */
+.slider-nav a {
   display: inline-block;
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.2);
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  opacity: 1;
-  transition: all .3s;
+  background-color: #555;
+  /* Inactive state color */
+  transition: background-color 0.3s ease;
 }
 
-.main-banner .owl-nav .owl-prev i {
-  position: absolute;
-  left: 45px;
+/* Active navigation button color */
+.slider-nav a.active {
+  background-color: #f35525;
+  /* Active state color */
 }
-
-.main-banner .owl-nav .owl-next i {
-  position: absolute;
-  right: 45px;
-}
-
-.main-banner .owl-nav .owl-prev i:hover,
-.main-banner .owl-nav .owl-next i:hover {
-  opacity: 1;
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-
-
-/* 
+/*
 ---------------------------------------------
 Featured Style
 --------------------------------------------- 
@@ -930,7 +924,12 @@ Featured Style
 }
 
 .featured .left-image img {
+  height: 500px;
+  /* Set a specific height */
+  object-fit: cover;
+  /* Ensure the image covers the container while maintaining its aspect ratio */
   padding-left: 55px;
+  /* Keep the left padding as is */
 }
 
 .featured .left-image a {
