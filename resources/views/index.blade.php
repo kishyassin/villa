@@ -67,16 +67,17 @@ document.addEventListener("DOMContentLoaded", function() {
     <!-- ***** Header Area Start ***** -->
 
 
-<section class="container rounded-2xl">
-    <div class="slider-wrapper ">
-        <div class="slider ">
+    <section class="container">
+    <div class="slider-wrapper">
+        <div class="slider">
             @foreach ($Heroimages as $index => $image)
-                <div class="slide-item ">
-                    <img id="slide-{{ $index + 1 }}" src="{{ $image }}" alt="Slide {{ $index + 1 }}" class="" />
+                <div class="slide-item">
+                    <!-- Utiliser asset() pour le bon chemin -->
+                    <img id="slide-{{ $index + 1 }}" src="{{ asset('storage/' . $image) }}" alt="Slide {{ $index + 1 }}" class="max-w-full rounded-lg shadow-xl object-cover" />
                     <!-- Text overlay -->
                     <div class="header-text">
                         <span class="category">{{$villas->ville}}</span>
-                        <h2 class="text-white max-w-[100px] text-wrap">Hurry!<br>Get the Best Villa for you</h2>
+                        <h2 class="text-white max-w-[50px] text-wrap">Hurry!<br>Get the Best Villa for you</h2>
                     </div>
                 </div>
             @endforeach
@@ -93,14 +94,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+
     <div class="featured section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="left-image ">
-                        <img src={{$squareImage}} alt="" class="">
-
-                    </div>
+                <div class="left-image">
+                 <img src="{{ asset('storage/' . $squareImage) }}" alt="Square Image" class="w-full h-auto rounded-lg">
+                </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="section-heading">
@@ -197,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
     </div>
 
- 
+
 
 
     <div class="section best-deal">

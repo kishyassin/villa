@@ -9,10 +9,11 @@ return new class extends Migration {
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('heroImage');
-            $table->string('squareImage');
-            $table->string('panoramaImage');
-            $table->string('largeHeroImage');
+            $table->json('heroImage');
+            $table->json('squareImage');
+            $table->json('panoramaImage');
+            $table->json('largeHeroImage');
+            $table->timestamps();
         });
     }
 

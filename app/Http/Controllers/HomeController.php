@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Configuration;
 use App\Models\Villa;
-use Illuminate\Support\Facades\DB; // Import  facade
+use Illuminate\Support\Facades\DB;
+
 class HomeController extends Controller
 {
     public function index()
@@ -14,15 +15,23 @@ class HomeController extends Controller
 
         // Récupérer toutes les villas
         $villas = Villa::first();
-        $Heroimages = DB::table('images')->pluck('heroImage')->toArray();
-        
-        // Split image strings into arrays if they are delimited
-        $Heroimages = array_map(fn($image) => explode(';', $image), $Heroimages);
-        
-        // Flatten the array in case of multiple records
-        $Heroimages = array_merge(...$Heroimages);
 
-        $squareImage = DB::table('images')->value('squareImage');
-        return view('index', compact('configurations', 'villas','Heroimages','squareImage'));
+        // Récupérer les images depuis la table 'images'
+        $Heroimages = DB::table('images')->pluck('heroImage')->first(); // On récupère une seule ligne contenant les images
+        $Heroimages = json_decode($Heroimages, true); // Décoder le JSON en tableau
+
+        // Vérification si la donnée n'est pas vide
+        if (!$Heroimages) {
+            $Heroimages = [];
+        }
+
+        $squareImage = DB::table('images')->value('squareImage');// On récupère une seule image carrée
+        $squareImage = str_replace('&quot;', '"', $squareImage);
+
+        // Remplacer les barres obliques inverses (\) par des barres normales (/)
+        $squareImage = str_replace('\/', '/', $squareImage);
+
+        // Retourner la vue avec les images
+        return view('index', compact('configurations', 'villas', 'Heroimages', 'squareImage'));
     }
 }
