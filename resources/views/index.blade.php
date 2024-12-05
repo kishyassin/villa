@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <!-- ***** Header Area Start ***** -->
 
 
-    <section class="container">
+    <section class="containerr">
     <div class="slider-wrapper">
         <div class="slider">
             @foreach ($Heroimages as $index => $image)
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <!-- Utiliser asset() pour le bon chemin -->
                     <img id="slide-{{ $index + 1 }}" src="{{ asset('storage/' . $image) }}" alt="Slide {{ $index + 1 }}" class="max-w-full rounded-lg shadow-xl object-cover" />
                     <!-- Text overlay -->
-                    <div class="header-text">
+                    <div class="header-text p-2">
                         <span class="category">{{$villas->ville}}</span>
                         <h2 class="text-white max-w-[50px] text-wrap">Hurry!<br>Get the Best Villa for you</h2>
                     </div>
@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
         </div>
     </div>
-
+                                               
 
 
 
