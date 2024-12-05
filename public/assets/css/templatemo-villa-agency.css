@@ -816,9 +816,10 @@ Banner Style
 */
 
 /* General container styles */
-.container {
+.containerr {
   width: 100%;
   padding: 0;
+  opacity: 0.8;
 }
 
 /* Slider wrapper to manage the overflow and positioning */
@@ -827,7 +828,6 @@ Banner Style
   width: 100%;
   margin: 0 auto;
   overflow: hidden;
-  border-radius: 1rem;
   /* Hide the overflow so that only one image is visible at a time */
 }
 
@@ -843,6 +843,7 @@ Banner Style
 /* Each slide should take up the full width of the container */
 .slide-item {
   position: relative;
+  width: 100%;
   min-width: 100%;
   /* Each slide takes 100% of the container width */
   scroll-snap-align: start;
@@ -859,12 +860,12 @@ Banner Style
 .header-text {
   position: absolute;
   top: 50%;
-  left: 20px;
+  left: 100px;
   transform: translateY(-50%);
   color: white;
   z-index: 2;
   /* Ensure text stays above the images */
-  max-width: 600px;
+  max-width: 590px;
 }
 
 .category {
@@ -924,9 +925,12 @@ Featured Style
 }
 
 .featured .left-image img {
-  height: 600px;
-  /* Set a specific height
-  object-fit: ;*/
+  height: 400px;
+  min-height: 400px;
+  min-width: 350px;
+  width: 350px;
+  /* Set a specific height*/
+  object-fit: cover;
   /* Ensure the image covers the container while maintaining its aspect ratio */
   padding-left: 55px;
   /* Keep the left padding as is */
