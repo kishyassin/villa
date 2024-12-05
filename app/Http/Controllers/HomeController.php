@@ -25,11 +25,10 @@ class HomeController extends Controller
             $Heroimages = [];
         }
 
-        $squareImage = DB::table('images')->value('squareImage');// On récupère une seule image carrée
-        $squareImage = str_replace('&quot;', '"', $squareImage);
+        $squareImage = DB::table('images')->value('squareImage');
+        $squareImage = json_decode($squareImage, true);// On récupère une seule image carré
 
-        // Remplacer les barres obliques inverses (\) par des barres normales (/)
-        $squareImage = str_replace('\/', '/', $squareImage);
+        // Remplacer les barres obliques inverses (\) par des barres normales (/
 
         // Retourner la vue avec les images
         return view('index', compact('configurations', 'villas', 'Heroimages', 'squareImage'));
