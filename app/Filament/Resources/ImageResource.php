@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ImageResource\Pages;
@@ -30,40 +31,54 @@ class ImageResource extends Resource
                     ->label('Grande Image Hero')
                     ->disk('public')
                     ->directory('images/heroes')
-                    ->image(),
+                    ->image()
+                    ->enableReordering()
+                    ->preserveFilenames() // Conserve le nom du fichier
+                    ->nullable(), // Permet de ne pas écraser si vide
 
                 FileUpload::make('heroImage')
                     ->label('Image Hero')
                     ->disk('public')
                     ->directory('images/heroes')
                     ->image()
-                    ->multiple(),
+                    ->multiple() // Supporte plusieurs images
+                    ->enableReordering() // Permet de réorganiser les images
+                    ->preserveFilenames() // Conserve le nom du fichier
+                    ->nullable(),
 
                 FileUpload::make('panoramaImage')
                     ->label('Image Panorama')
                     ->disk('public')
                     ->directory('images/panoramas')
-                    ->image(),
+                    ->enableReordering() // Permet de réorganiser les images
+                    ->preserveFilenames()
+                    ->image()
+                    ->nullable(),
 
                 FileUpload::make('squareImage')
                     ->label('Image Carrée')
                     ->disk('public')
                     ->directory('images/squares')
-                    ->image(),
+                    ->enableReordering() // Permet de réorganiser les images
+                    ->preserveFilenames()
+                    ->image()
+                    ->nullable(),
             ]);
     }
 
     public static function afterCreate(Images $image, array $data): void
     {
-        // Après la création de l'image, on enregistre les chemins des images sous forme de JSON
+        // Enregistrer les chemins des images dans les colonnes appropriées
         $image->largeHeroImage = $data['largeHeroImage']->store('images/heroes', 'public');
         $image->heroImage = json_encode(array_map(function ($image) {
             return $image->store('images/heroes', 'public');
         }, $data['heroImage']));
 
+        // Assurez-vous que les images pour les colonnes de type string sont stockées correctement
         $image->panoramaImage = $data['panoramaImage']->store('images/panoramas', 'public');
         $image->squareImage = $data['squareImage']->store('images/squares', 'public');
 
+        // Sauvegarde de l'image
         $image->save();
     }
 
@@ -79,7 +94,7 @@ class ImageResource extends Resource
                     ->label('Image Hero')
                     ->disk('public'),
 
-                Tables\Columns\ImageColumn::make('panoramaImage')
+                ImageColumn::make('panoramaImage')
                     ->label('Image Panorama')
                     ->disk('public'),
 

@@ -819,7 +819,6 @@ Banner Style
 .containerr {
   width: 100%;
   padding: 0;
-  opacity: 0.8;
 }
 
 /* Slider wrapper to manage the overflow and positioning */
@@ -1040,12 +1039,13 @@ Video Style
 */
 
 .video {
-  background-image: url(../images/video-bg.jpg);
   background-repeat: no-repeat;
+  filter: brightness(70%);
   background-size: cover;
   background-position: center center;
   padding: 100px 0px 250px 0px;
   position: relative;
+  z-index: 0;
 }
 
 .video-content {
@@ -1053,7 +1053,7 @@ Video Style
 }
 
 .video .section-heading h2 {
-  color: #fff;
+  color: white;
 }
 
 .video-content .video-frame {

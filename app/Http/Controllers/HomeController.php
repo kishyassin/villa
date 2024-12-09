@@ -26,14 +26,16 @@ class HomeController extends Controller
         }
 
         $squareImage = DB::table('images')->value('squareImage');
-        $squareImage = json_decode($squareImage, true);// On récupère une seule image carré
+        // $squareImage = json_decode($squareImage, true);// On récupère une seule image carré
 
         $panoramaImage = DB::table('images')->value('panoramaImage');
-        $panoramaImage = json_decode($panoramaImage, true);
+        // $panoramaImage = json_decode($panoramaImage, true);
 
+        $largeHeroImage = DB::table('images')->value('largeHeroImage');
+        // $largeHeroImage = json_decode($largeHeroImage, true);
         // Remplacer les barres obliques inverses (\) par des barres normales (/
 
         // Retourner la vue avec les images
-        return view('index', compact('configurations', 'villas', 'Heroimages', 'squareImage','panoramaImage'));
+        return view('index', compact('configurations', 'villas', 'Heroimages', 'squareImage','panoramaImage','largeHeroImage'));
     }
 }

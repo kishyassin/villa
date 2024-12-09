@@ -67,13 +67,13 @@ document.addEventListener("DOMContentLoaded", function() {
     <!-- ***** Header Area Start ***** -->
 
 
-    <section class="containerr">
-    <div class="slider-wrapper">
+    <section class="containerr ">
+    <div class="slider-wrapper h-[80%]">
         <div class="slider">
             @foreach ($Heroimages as $index => $image)
                 <div class="slide-item">
                     <!-- Utiliser asset() pour le bon chemin -->
-                    <img id="slide-{{ $index + 1 }}" src="{{ asset('storage/' . $image) }}" alt="Slide {{ $index + 1 }}" class="max-w-full rounded-lg shadow-xl object-cover" />
+                    <img id="slide-{{ $index + 1 }}" src="{{ asset('storage/' . $image) }}" alt="Slide {{ $index + 1 }}" class="" />
                     <!-- Text overlay -->
                     <div class="header-text p-2">
                         <span class="category">{{$villas->ville}}</span>
@@ -91,10 +91,6 @@ document.addEventListener("DOMContentLoaded", function() {
 </section>
 
 
-
-
-
-
     <div class="featured section">
         <div class="container">
             <div class="row">
@@ -106,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="col-lg-5">
                     <div class="section-heading">
                         <h6>| Featured</h6>
-                        <h2>Best Appartment &amp; Sea view</h2>
+                        <h2>Best Villa &amp; Sea view</h2>
                     </div>
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
@@ -172,12 +168,11 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
     </div>
 
-    <div class="video section">
-        <div class="container">
+    <div class="video section" style="background-image: url('{{ asset('storage/' . $largeHeroImage) }}');">
+        <div class="container" >
             <div class="row">
                 <div class="col-lg-4 offset-lg-4">
                     <div class="section-heading text-center">
-                        <h6>| Video View</h6>
                         <h2>Get Closer View & Different Feeling</h2>
                     </div>
                 </div>
@@ -191,13 +186,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="col-lg-10 offset-lg-1">
                     <!-- Pannellum Viewer -->
                     <div class="video-frame">
-                        <div id="panorama" style="width: 100%; height: 500px;"></div>
+                        <img id="panorama" src="{{ asset('storage/' . $panoramaImage) }}" alt="" style="width: 100%; height: 500px;">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-                                               
+
 
 
 
@@ -233,9 +228,6 @@ document.addEventListener("DOMContentLoaded", function() {
                                         <div class="col-lg-3">
                                             <h4>Detail Info About Villa</h4>
                                             <p>{{ $villas->description }}</p>
-                                            <div class="icon-button">
-                                                <a href="property-details.html"><i class="fa fa-calendar"></i> Schedule a visit</a>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
