@@ -1908,3 +1908,141 @@ body {
     margin-right: 100px;
   }
 }
+
+/* Section Styling */
+.comments-section {
+    background-color: #f9fafb; /* Light gray background */
+    padding: 4rem 1rem;
+    font-family: Arial, sans-serif;
+}
+
+.comments-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header Styling */
+.comments-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.comments-subtitle {
+    color: #f35525; /* Primary color */
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.comments-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937; /* Gray-800 */
+}
+
+/* Grid Styling */
+.comments-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .comments-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .comments-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Comment Card Styling */
+.comment-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.comment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Comment Header */
+.comment-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.comment-date {
+    color: #6b7280; /* Gray-500 */
+    font-size: 0.875rem;
+}
+
+/* User Information */
+.comment-user {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 0.75rem;
+}
+
+.comment-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #f35525; /* Primary color */
+    color: white;
+    font-weight: bold;
+    font-size: 1.25rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-username {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #1f2937; /* Gray-800 */
+}
+
+/* Comment Text */
+.comment-text {
+    color: #4b5563; /* Gray-700 */
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Load More Button */
+.load-more-container {
+    grid-column: span 3;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.load-more-button {
+    padding: 0.75rem 1.5rem;
+    background-color: #f35525; /* Primary color */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.load-more-button:hover {
+    background-color: #1e40af; /* Darker blue */
+}
+  
+
+.payment-section {
+  padding-bottom: 2rem;
+}

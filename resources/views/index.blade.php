@@ -3,6 +3,54 @@
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<script>
+    $(document).ready(function () {
+    $(".owl-carousel").owlCarousel({
+        items: 3, // Number of items visible at once
+        loop: true, // Infinite loop
+        margin: 10, // Space between items
+        autoplay: true, // Enable autoplay
+        autoplayTimeout: 3000, // Autoplay interval (ms)
+        responsive: {
+            0: { items: 1 },
+            600: { items: 2 },
+            1000: { items: 3 }
+        }
+    });
+});
+</script>
+<script>
+    // Initially, show only the first 3 comments
+    const allComments = document.querySelectorAll('.comment-card');
+    const loadMoreButton = document.getElementById('load-more-button');
+
+    // Hide comments beyond the first 3
+    function showOnlyFirstThreeComments() {
+        for (let i = 3; i < allComments.length; i++) {
+            allComments[i].style.display = 'none';
+        }
+    }
+
+    // Show more comments when the button is clicked
+    function showMoreComments() {
+        for (let i = 3; i < allComments.length; i++) {
+            allComments[i].style.display = 'block';
+        }
+        // Hide the button after showing more comments
+        loadMoreButton.style.display = 'none';
+    }
+
+    // Call function to initially hide extra comments
+    showOnlyFirstThreeComments();
+
+    // Add event listener to "Show More" button
+    loadMoreButton.addEventListener('click', showMoreComments);
+</script>
+
+
+<!-- Owl Carousel JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -67,17 +115,17 @@ document.addEventListener("DOMContentLoaded", function() {
     <!-- ***** Header Area Start ***** -->
 
 
-    <section class="containerr ">
+   <section class="container">
     <div class="slider-wrapper h-[80%]">
         <div class="slider">
             @foreach ($Heroimages as $index => $image)
                 <div class="slide-item">
-                    <!-- Utiliser asset() pour le bon chemin -->
-                    <img id="slide-{{ $index + 1 }}" src="{{ asset('storage/' . $image) }}" alt="Slide {{ $index + 1 }}" class="" />
+                    <!-- Use asset() for correct URL -->
+                    <img id="slide-{{ $index + 1 }}" src="{{ asset('storage/' . $image) }}" alt="Slide {{ $index + 1 }}" />
                     <!-- Text overlay -->
                     <div class="header-text p-2">
-                        <span class="category">{{$villas->ville}}</span>
-                        <h2 class="text-white max-w-[50px] text-wrap">Hurry!<br>Get the Best Villa for you</h2>
+                        <span class="category">{{ $villas->ville ?? 'Unknown City' }}</span>
+                        <h2 class="text-white max-w-[50px] text-wrap">Hurry!<br>Get the Best Villa for You</h2>
                     </div>
                 </div>
             @endforeach
@@ -91,12 +139,13 @@ document.addEventListener("DOMContentLoaded", function() {
 </section>
 
 
+
     <div class="featured section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
                 <div class="left-image">
-                 <img src="{{ asset('storage/' . $squareImage) }}" alt="Square Image" class="w-full h-auto rounded-lg">
+                 <img src="{{ asset('storage/' . $SquareImage) }}" alt="Square Image" class="w-full h-auto rounded-lg">
                 </div>
                 </div>
                 <div class="col-lg-5">
@@ -168,7 +217,11 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
     </div>
 
-    <div class="video section" style="background-image: url('{{ asset('storage/' . $largeHeroImage) }}');">
+    
+
+
+
+<div class="video section" style="background-image: url('{{ asset('storage/' . $LargeImage) }}');">
         <div class="container" >
             <div class="row">
                 <div class="col-lg-4 offset-lg-4">
@@ -180,13 +233,15 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
     </div>
 
+<!-- Testimonial End -->
+
     <div class="video-content">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 offset-lg-1">
                     <!-- Pannellum Viewer -->
                     <div class="video-frame">
-                        <img id="panorama" src="{{ asset('storage/' . $panoramaImage) }}" alt="" style="width: 100%; height: 500px;">
+                        <img id="panorama" src="{{ asset('storage/' . $PanaromaImage) }}" alt="" style="width: 100%; height: 500px;">
                     </div>
                 </div>
             </div>
@@ -240,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function() {
     </div>
 
 
-    <div class="payment-section section">
+    <div class="payment-section section ">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -297,6 +352,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+      <!-- Testimonial Start -->
+<section id="comments-section" class="comments-section">
+    <div class="comments-container">
+        <div class="comments-header">
+            <h5 class="comments-subtitle">Testimonials</h5>
+            <h2 class="comments-title">What Our Clients Say</h2>
+        </div>
+        <div class="comments-grid">
+            @foreach ($comments as $comment)
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <!-- Date on Top Right -->
+                        <p class="comment-date">
+                            {{ \Carbon\Carbon::parse($comment->created_at)->format('d-m-Y') }}
+                        </p>
+                    </div>
+                    <div class="comment-user">
+                        <!-- User Avatar -->
+                        <div class="comment-avatar">
+                            {{ strtoupper(substr($comment->name, 0, 1)) }}
+                        </div>
+                        <!-- User Name -->
+                        <p class="comment-username">{{ $comment->name }}</p>
+                    </div>
+                    <p class="comment-text">
+                        "{{ $comment->comment_text }}"
+                    </p>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</section>
 
     <div class="contact section">
         <div class="container" id="contact">

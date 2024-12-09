@@ -8,24 +8,47 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    // Method to fetch comments
+    public function fetchComments()
+{
+    // Fetch the last 6 comments joined with user data
+    $comments = DB::table('comments')
+        ->join('users', 'comments.idUser', '=', 'users.id')
+        ->where('comments.is_accept_show', 1) // Only accepted comments
+        ->orderBy('comments.created_at', 'desc') // Order by latest
+        ->select(
+            'comments.comment_text',
+            'comments.created_at',
+            'users.name',
+            'users.avatar'
+        )
+        ->take(6) // Fetch only the last 6 comments
+        ->get(); // Fetch the result as a collection
+
+    return $comments; // Return the fetched comments
+}
+
+
+    // Main controller method for the home page
     public function index()
     {
-        // Récupérer la première configuration
+        // Retrieve the first configuration
         $configurations = Configuration::first();
 
-        // Récupérer toutes les villas
+        // Retrieve the first villa
         $villas = Villa::first();
 
-        // Récupérer les images depuis la table 'images'
-        // $Heroimages = DB::table('images')->pluck('heroImage')->first(); // On récupère une seule ligne contenant les images
-        // $Heroimages = json_decode($Heroimages, true); // Décoder le JSON en tableau
+        // Retrieve images from the respective tables
+        $Heroimages = DB::table('hero_images')->pluck('heroimagepath')->toArray();
+        $SquareImage = DB::table('square_images')->pluck('squareimagespath')->first();
+        $PanaromaImage = DB::table('panaroma_images')->pluck('panaromaimagepath')->first();
+        $StripeImage = DB::table('stripe_images')->pluck('stripeimagepath')->first();
+        $LargeImage = DB::table('large_images')->pluck('largeimagepath')->first();
 
-        // Vérification si la donnée n'est pas vide
+        // Fetch comments
+        $comments = $this->fetchComments(); // Use $this to call the fetchComments method
 
-        // $largeHeroImage = json_decode($largeHeroImage, true);
-        // Remplacer les barres obliques inverses (\) par des barres normales (/
-
-        // Retourner la vue avec les images
-        return view('index', compact('configurations', 'villas'));
+        // Return the view with all data
+        return view('index', compact('configurations', 'villas', 'Heroimages', 'SquareImage', 'PanaromaImage', 'StripeImage', 'LargeImage', 'comments'));
     }
 }
