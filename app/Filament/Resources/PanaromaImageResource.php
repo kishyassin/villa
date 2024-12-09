@@ -22,11 +22,15 @@ class PanaromaImageResource extends Resource
     protected static ?string $model = PanaromaImage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Gestion des Images';
 
     public static function form(Form $form): Form
     {
         return $form
+
             ->schema([
+                Section::make('Gestion des Images')
+                ->schema([
                 FileUpload::make('panaromaimagepath')
                     ->label('Image Panorama')
                     ->disk('public')
@@ -35,7 +39,10 @@ class PanaromaImageResource extends Resource
                     ->preserveFilenames()
                     ->image()
                     ->nullable(),
-            ]);
+            ])
+            ->collapsible()  // Optionally, you can make the section collapsible
+            ->collapsed()
+        ]);
     }
 
     public static function table(Table $table): Table

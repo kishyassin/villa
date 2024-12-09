@@ -19,7 +19,7 @@ class CommentResource extends Resource
     protected static ?string $model = Comment::class;
 
     protected static ?string $navigationLabel = 'Commentaires';
-    protected static ?string $navigationIcon = 'heroicon-o-home';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
 
     public static function getPages(): array

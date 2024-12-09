@@ -16,7 +16,7 @@ class OrderResource extends Resource
     protected static ?string $model = Order::class;
 
     protected static ?string $navigationLabel = 'Orders';
-    protected static ?string $navigationIcon = 'heroicon-o-home';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function getPages(): array
     {
