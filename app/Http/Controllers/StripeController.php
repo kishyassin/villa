@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use Carbon\Carbon;
-
+use App\Models\Villa;
 class StripeController extends Controller
 {
     /**
@@ -24,18 +24,18 @@ class StripeController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
         ]);
         \Log::info('Validation passed.');
-
+         $villa = Villa::first();
         $startDate = Carbon::parse($data['start_date'])->format('Y-m-d');
         $endDate = Carbon::parse($data['end_date'])->format('Y-m-d');
         $userId = Auth::id();
-
+        $pricePerDay = $villa->price;
         // Check for conflicting bookings
         if ($this->isBookingConflict($startDate, $endDate)) {
             return redirect()->back()->with('error', 'The villa is already rented for the selected dates.');
         }
 
         // Calculate rental price
-        $pricePerDay = config('app.price_per_day', 300); // From config or default
+        $pricePerDay = config('app.price_per_day', $pricePerDay); // From config or default
         $totalPrice = $this->calculateRentalPrice($startDate, $endDate, $pricePerDay);
 
         try {
@@ -154,14 +154,20 @@ public function success()
      */
     private function calculateRentalPrice($startDate, $endDate, $pricePerDay)
     {
-        // Parse the dates
-        $start = Carbon::parse($startDate);
-        $end = Carbon::parse($endDate);
+    // Parse the dates
+    $start = Carbon::parse($startDate);
+    $end = Carbon::parse($endDate);
 
-        // Calculate the total number of days
-        $totalDays = $start->diffInDays($end) + 1; // Include both start and end dates
+    // Calculate the total number of days
+    $totalDays = $start->diffInDays($end); // Exclude the extra day
 
-        // Return the total rental price
-        return $totalDays * $pricePerDay;
+    // If start and end dates are the same, consider it as 1 day
+    if ($totalDays === 0) {
+        $totalDays = 1;
     }
+
+    // Return the total rental price
+    return $totalDays * $pricePerDay;
+}
+
 }
