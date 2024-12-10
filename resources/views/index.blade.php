@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <!-- ***** Header Area Start ***** -->
 
 
-   <section class="container">
+   <section class="containerr"> <!-- Do Not Correct containerr -->
     <div class="slider-wrapper h-[80%]">
         <div class="slider">
             @foreach ($Heroimages as $index => $image)

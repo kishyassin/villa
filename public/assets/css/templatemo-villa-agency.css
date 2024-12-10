@@ -853,6 +853,7 @@ Banner Style
   width: 100%;
   height: 100%;
   object-fit: cover;
+  
 }
 
 /* The text on top of the image */
@@ -1782,6 +1783,7 @@ Responsive Style
 
 body {
   overflow-x: hidden;
+  width: 100%;
 }
 
 @media (max-width: 767px) {
