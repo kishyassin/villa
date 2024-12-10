@@ -52,17 +52,7 @@
 <!-- jQuery -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css">
 <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
-<script>
-    // Initialize the Pannellum Viewer
-    pannellum.viewer('panorama', {
-        type: 'equirectangular',
-        panorama: 'assets/images/your-panorama-image.jpg', // Replace with your 360° image path
-        autoLoad: true,
-        compass: true,
-        showControls: true,
-        yaw: 180, // Default orientation
-    });
-</script>
+
 <script src="vendor/jquery/jquery.min.js"></script>
 <!-- Bootstrap Bundle with Popper -->
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

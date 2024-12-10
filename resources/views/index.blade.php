@@ -241,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="col-lg-10 offset-lg-1">
                     <!-- Pannellum Viewer -->
                     <div class="video-frame">
-                        <img id="panorama" src="{{ asset('storage/' . $PanaromaImage) }}" alt="" style="width: 100%; height: 500px;">
+                        <div id="panorama" style="width: 100%; height: 500px;"></div>
                     </div>
                 </div>
             </div>
@@ -478,4 +478,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 @endsection
+
+<script>
+    // Pass the PHP variable to JavaScript
+    const panoramaPath = "{{ asset('storage/' . $PanaromaImage) }}";
+
+    // Initialize the Pannellum Viewer
+    pannellum.viewer('panorama', {
+        type: 'equirectangular',
+        panorama: panoramaPath, // Use the resolved path
+        autoLoad: true,
+        compass: true,
+        showControls: true,
+        yaw: 180, // Default orientation
+    });
+</script>
 
