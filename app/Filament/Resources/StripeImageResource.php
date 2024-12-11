@@ -16,7 +16,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use App\Filament\Resources\SectionResource;
 class StripeImageResource extends Resource
 {
     protected static ?string $model = StripeImage::class;

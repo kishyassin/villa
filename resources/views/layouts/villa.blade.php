@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css">
+
+<!-- Add Pannellum JS -->
+    <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
 
 </head>
 

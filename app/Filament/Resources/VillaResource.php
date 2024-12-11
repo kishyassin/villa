@@ -31,7 +31,7 @@ class VillaResource extends Resource
 
                 TextColumn::make('id')->toggleable(),
                 TextColumn::make('name')->label('Nom de la villa'),
-                TextColumn::make('location')->label('location')->words(2),
+                TextColumn::make('location')->label('location')->limit(15),
                 TextColumn::make('ville')->label('ville')->searchable(),
                 TextColumn::make('price')->label('Prix')->money('MAD'),
                 TextColumn::make('description')->label('Description')->words(2),
@@ -48,5 +48,5 @@ class VillaResource extends Resource
                 // Add actions if needed
             ]);
     }
-    
+
 }

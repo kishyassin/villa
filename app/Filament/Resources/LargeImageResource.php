@@ -16,6 +16,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\FileUpload;
+use App\Filament\Resources\SectionResource;
 
 class LargeImageResource extends Resource
 {

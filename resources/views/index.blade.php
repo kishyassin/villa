@@ -3,6 +3,7 @@
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
 <script>
     $(document).ready(function () {
     $(".owl-carousel").owlCarousel({
@@ -217,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
     </div>
 
-    
+
 
 
 
@@ -343,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
                 <!-- Right Column: Image -->
                 <div class="col-lg-6 text-center">
-                    <img src="assets/images/video-frame.jpg" alt="Villa" class="img-fluid payment-image">
+                    <img src="{{ asset('storage/' . $StripeImage) }}" alt="Villa" class="img-fluid payment-image">
                 </div>
             </div>
         </div>
@@ -479,18 +480,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
 @endsection
 
-<script>
-    // Pass the PHP variable to JavaScript
-    const panoramaPath = "{{ asset('storage/' . $PanaromaImage) }}";
 
-    // Initialize the Pannellum Viewer
-    pannellum.viewer('panorama', {
-        type: 'equirectangular',
-        panorama: panoramaPath, // Use the resolved path
-        autoLoad: true,
-        compass: true,
-        showControls: true,
-        yaw: 180, // Default orientation
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Initialize the Pannellum Viewer
+        pannellum.viewer('panorama', {
+            "type": "equirectangular",
+            "panorama": "{{ asset('storage/' . $PanaromaImage) }}", // Your panorama image URL
+            "autoLoad": true,
+            "showZoomCtrl": true,
+            "showFullscreenCtrl": true
+        });
     });
 </script>
+
 

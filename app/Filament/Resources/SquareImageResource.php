@@ -16,6 +16,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Components\FileUpload;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\SectionResource;
 
 class SquareImageResource extends Resource
 {

@@ -16,7 +16,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use App\Filament\Resources\SectionResource;
 class PanaromaImageResource extends Resource
 {
     protected static ?string $model = PanaromaImage::class;
