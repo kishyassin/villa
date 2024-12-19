@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SquareImageResource\Pages;
 use App\Filament\Resources\SquareImageResource\RelationManagers;
-use App\Models\SquareImage;
+use App\Models\squareImage;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
@@ -20,7 +20,7 @@ use App\Filament\Resources\SectionResource;
 
 class SquareImageResource extends Resource
 {
-    protected static ?string $model = SquareImage::class;
+    protected static ?string $model = squareImage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Gestion des Images';
