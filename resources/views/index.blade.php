@@ -125,7 +125,6 @@ document.addEventListener("DOMContentLoaded", function() {
             @foreach ($Heroimages as $index => $image)
                 <div class="slide-item">
                     <!-- Use asset() for correct URL -->
-                    {{$image}}
                     <img id="slide-{{ $index + 1 }}" src="{{ asset('storage/' . $image) }}" alt="Slide {{ $index + 1 }}" />
                     <!-- Text overlay -->
                     <div class="header-text p-2">
