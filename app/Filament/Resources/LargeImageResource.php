@@ -32,7 +32,7 @@ class LargeImageResource extends Resource
                 FileUpload::make('largeimagepath')
                 ->label('Grande Image Hero')
                 ->disk('public')
-                ->directory('images/heroes')
+                ->directory('images/larges')
                 ->image()
                 ->enableReordering()
                 ->preserveFilenames() // Conserve le nom du fichier

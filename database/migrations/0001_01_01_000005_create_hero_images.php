@@ -16,7 +16,7 @@ return new class extends Migration {
         });
 
         DB::table('hero_images')->insert([
-            'heroimagepath' => 'images/heroes/01JE93B86BRG5E14XEM3JB46CP.jpg', // Remplacez par le chemin par défaut souhaité
+            'heroimagepath' => 'images/heroes/banner-01.jpg', // Remplacez par le chemin par défaut souhaité
             'created_at' => now(),
             'updated_at' => now(),
         ]);

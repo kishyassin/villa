@@ -3,7 +3,10 @@
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css">
 
+<!-- Add Pannellum JS -->
+<script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
 <script>
     $(document).ready(function () {
     $(".owl-carousel").owlCarousel({
@@ -122,6 +125,7 @@ document.addEventListener("DOMContentLoaded", function() {
             @foreach ($Heroimages as $index => $image)
                 <div class="slide-item">
                     <!-- Use asset() for correct URL -->
+                    {{$image}}
                     <img id="slide-{{ $index + 1 }}" src="{{ asset('storage/' . $image) }}" alt="Slide {{ $index + 1 }}" />
                     <!-- Text overlay -->
                     <div class="header-text p-2">
@@ -481,17 +485,5 @@ document.addEventListener("DOMContentLoaded", function() {
 @endsection
 
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Initialize the Pannellum Viewer
-        pannellum.viewer('panorama', {
-            "type": "equirectangular",
-            "panorama": "{{ asset('storage/' . $PanaromaImage) }}", // Your panorama image URL
-            "autoLoad": true,
-            "showZoomCtrl": true,
-            "showFullscreenCtrl": true
-        });
-    });
-</script>
 
 

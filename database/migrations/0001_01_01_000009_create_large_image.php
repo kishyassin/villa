@@ -16,7 +16,7 @@ return new class extends Migration {
         });
 
         DB::table('large_images')->insert([
-            'largeimagepath' => 'images/heroes/video-bg.jpg', // Remplacez par le chemin par défaut souhaité
+            'largeimagepath' => 'images/larges/banner-03.jpg', // Remplacez par le chemin par défaut souhaité
             'created_at' => now(),
             'updated_at' => now(),
         ]);

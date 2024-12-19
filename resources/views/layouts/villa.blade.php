@@ -20,10 +20,7 @@
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
     <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.css">
 
-<!-- Add Pannellum JS -->
-    <script src="https://cdn.jsdelivr.net/npm/pannellum/build/pannellum.js"></script>
 
 </head>
 
@@ -144,7 +141,18 @@
         });
     </script>
 @endif
-
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Initialize the Pannellum Viewer
+        pannellum.viewer('panorama', {
+            "type": "equirectangular",
+            "panorama": "storage/images/panoramas/your-panorama-image.jpg", // Use Blade to insert the image URL
+            "autoLoad": true,
+            "showZoomCtrl": true,
+            "showFullscreenCtrl": true
+        });
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 

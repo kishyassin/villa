@@ -34,7 +34,10 @@ class HeroImagesResource extends Resource
                 ->disk('public')
                 ->directory('images/heroes')
                 ->image() // Supporte plusieurs image // Conserve le nom du fichier
-                ->nullable(),
+                ->nullable()
+                ->getUploadedFileNameForStorageUsing(function ($file) {
+                    return strtolower($file->getClientOriginalName()); // Convertir en minuscules
+                })
                 //
             ]);
     }
