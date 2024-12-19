@@ -109,8 +109,8 @@ public function success()
         Order::create([
             'idUser' => $userId,
             'date_debut' => $startDate,
-            'date_fin' => $endDate,
             'price_order' => $price, // Mark as accepted after payment
+            'date_fin' => $endDate,
         ]);
 
         DB::commit();

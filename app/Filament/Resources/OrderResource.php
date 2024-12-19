@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 use Filament\Tables\Table;
 use App\Filament\Resources\OrderResource\Pages;
-use App\Models\order;
+use App\Models\Order;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\IconColumn;

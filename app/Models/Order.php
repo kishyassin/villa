@@ -17,6 +17,7 @@ class Order extends Model
         'idUser',      // The foreign key for the User
         'date_debut',  // Start date of the rental
         'date_fin',    // End date of the rental
+        'price_order',
         'is_accept',   // Whether the order is accepted
     ];
 
