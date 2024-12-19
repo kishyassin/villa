@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\HeroImagesResource\Pages;
 use App\Filament\Resources\HeroImagesResource\RelationManagers;
-use App\Models\HeroImages;
+use App\Models\heroImages;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -20,7 +20,7 @@ use App\Filament\Resources\SectionResource;
 
 class HeroImagesResource extends Resource
 {
-    protected static ?string $model = HeroImages::class;
+    protected static ?string $model = heroImages::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Gestion des Images';

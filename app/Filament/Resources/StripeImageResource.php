@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StripeImageResource\Pages;
 use App\Filament\Resources\StripeImageResource\RelationManagers;
-use App\Models\StripeImage;
+use App\Models\stripeImage;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\SectionResource;
 class StripeImageResource extends Resource
 {
-    protected static ?string $model = StripeImage::class;
+    protected static ?string $model = stripeImage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Gestion des Images';

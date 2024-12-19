@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PanaromaImageResource\Pages;
 use App\Filament\Resources\PanaromaImageResource\RelationManagers;
-use App\Models\PanaromaImage;
+use App\Models\panaromaImage;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PanaromaImageResource extends Resource
 {
-    protected static ?string $model = PanaromaImage::class;
+    protected static ?string $model = panaromaImage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Gestion des Images';

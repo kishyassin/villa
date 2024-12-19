@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LargeImageResource\Pages;
 use App\Filament\Resources\LargeImageResource\RelationManagers;
-use App\Models\LargeImage;
+use App\Models\largeImage;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -20,7 +20,7 @@ use App\Filament\Resources\SectionResource;
 
 class LargeImageResource extends Resource
 {
-    protected static ?string $model = LargeImage::class;
+    protected static ?string $model = largeImage::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Gestion des Images';
