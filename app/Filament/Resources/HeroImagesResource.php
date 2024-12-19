@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\HeroImagesResource\Pages;
 use App\Filament\Resources\HeroImagesResource\RelationManagers;
-use App\Models\heroImages;
+use App\Models\HeroImages;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;

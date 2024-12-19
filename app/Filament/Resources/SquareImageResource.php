@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SquareImageResource\Pages;
 use App\Filament\Resources\SquareImageResource\RelationManagers;
-use App\Models\squareImage;
+use App\Models\SquareImage;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;

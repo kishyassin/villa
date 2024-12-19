@@ -2049,3 +2049,7 @@ body {
 .payment-section {
   padding-bottom: 2rem;
 }
+.phone{
+  display: flex;
+  flex-direction: row;
+}

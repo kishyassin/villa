@@ -25,7 +25,7 @@ return new class extends Migration {
         DB::table('villas')->insert([
             'name' => 'Villa Sunset Paradise',
             'description' => 'Une villa luxueuse avec vue sur la mer, parfaite pour des vacances inoubliables.',
-            'location' => 'Rue des Palmiers, Quartier Riviera',
+            'location' => 'https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d53110.39129670262!2d-7.3629696000000004!3d33.6986112!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sfr!2sma!4v1733909497782!5m2!1sfr!2sma',
             'ville' => 'Marrakech',
             'price' => 2500.00,
             'rooms' => 3,

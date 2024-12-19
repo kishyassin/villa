@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StripeImageResource\Pages;
 use App\Filament\Resources\StripeImageResource\RelationManagers;
-use App\Models\stripeImage;
+use App\Models\StripeImage;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;

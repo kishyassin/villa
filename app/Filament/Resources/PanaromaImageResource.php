@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PanaromaImageResource\Pages;
 use App\Filament\Resources\PanaromaImageResource\RelationManagers;
-use App\Models\panaromaImage;
+use App\Models\PanaromaImage;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;

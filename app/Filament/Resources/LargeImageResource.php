@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LargeImageResource\Pages;
 use App\Filament\Resources\LargeImageResource\RelationManagers;
-use App\Models\largeImage;
+use App\Models\LargeImage;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
