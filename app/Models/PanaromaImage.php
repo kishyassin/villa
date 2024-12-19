@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class panaromaImage extends Model
+class PanaromaImage extends Model
 {
     use HasFactory;
 

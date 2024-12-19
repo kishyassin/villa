@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class squareImage extends Model
+class SquareImage extends Model
 {
     use HasFactory;
 

@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
    <section class="containerr"> <!-- Do Not Correct containerr -->
-    <div class="slider-wrapper h-[80%]">
+    <div class="slider-wrapper h-[60%]">
         <div class="slider">
             @foreach ($Heroimages as $index => $image)
                 <div class="slide-item">

@@ -13,10 +13,11 @@ use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Section;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\SectionResource;
+
 class PanaromaImageResource extends Resource
 {
     protected static ?string $model = PanaromaImage::class;
@@ -27,9 +28,6 @@ class PanaromaImageResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-
-            ->schema([
-                Section::make('Gestion des Images')
                 ->schema([
                 FileUpload::make('panaromaimagepath')
                     ->label('Image Panorama')
@@ -38,11 +36,9 @@ class PanaromaImageResource extends Resource
                     ->enableReordering() // Permet de réorganiser les images
                     ->preserveFilenames()
                     ->image()
-                    ->nullable(),
-            ])
-            ->collapsible()  // Optionally, you can make the section collapsible
-            ->collapsed()
-        ]);
+                    ->nullable()
+                    ->rules('max:10240'),
+                ]);        
     }
 
     public static function table(Table $table): Table
